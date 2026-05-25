@@ -835,8 +835,9 @@ function renderIncome() {
   var inc = E.filter(function(e) { return e.type === 'income'; });
   var el = document.getElementById('income-list');
   if (!inc.length) { el.innerHTML = '<div class="empty">No income yet</div>'; return; }
+  el.onclick = function(ev) { var b = ev.target.closest('.dbtn'); if (b) { var id = Number(b.getAttribute('data-id')); if (confirm('Delete this entry?')) { delE(id); } } };
   el.innerHTML = inc.map(function(e) {
-    return '<div class="erow"><div style="flex:1"><div style="font-size:13px;font-weight:700">' + e.description + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(e.date) + ' · ' + e.category + (e.paid ? '' : ' <span style="color:#C0392B">UNPAID</span>') + '</div></div><div style="display:flex;align-items:center;gap:8px"><div style="text-align:right"><div style="font-size:14px;font-weight:700;color:#0ABAB5">+' + fm(e.amountExc) + '</div><div style="font-size:10px;color:#555">GST ' + fm(e.gst) + '</div></div><button class="dbtn" onclick="delE(' + e.id + ')">X</button></div></div>';
+    return '<div class="erow"><div style="flex:1"><div style="font-size:13px;font-weight:700">' + e.description + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(e.date) + ' · ' + e.category + (e.paid ? '' : ' <span style="color:#C0392B">UNPAID</span>') + '</div></div><div style="display:flex;align-items:center;gap:8px"><div style="text-align:right"><div style="font-size:14px;font-weight:700;color:#0ABAB5">+' + fm(e.amountExc) + '</div><div style="font-size:10px;color:#555">GST ' + fm(e.gst) + '</div></div><button class="dbtn" data-id="' + e.id + '">🗑</button></div></div>';
   }).join('');
 }
 
@@ -844,24 +845,27 @@ function renderExpenses() {
   var exp = E.filter(function(e) { return e.type === 'expense'; });
   var el = document.getElementById('expense-list');
   if (!exp.length) { el.innerHTML = '<div class="empty">No expenses yet</div>'; return; }
+  el.onclick = function(ev) { var b = ev.target.closest('.dbtn'); if (b) { var id = Number(b.getAttribute('data-id')); if (confirm('Delete this entry?')) { delE(id); } } };
   el.innerHTML = exp.map(function(e) {
-    return '<div class="erow"><div style="flex:1"><div style="font-size:13px;font-weight:700">' + e.description + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(e.date) + ' · ' + e.category + '</div>' + (e.notes ? '<div style="font-size:11px;color:#555">' + e.notes + '</div>' : '') + '</div><div style="display:flex;align-items:center;gap:8px"><div style="text-align:right"><div style="font-size:14px;font-weight:700;color:#C0392B">-' + fm(e.amountExc) + '</div><div style="font-size:10px;color:#555">GST ' + fm(e.gst) + '</div></div><button class="dbtn" onclick="delE(' + e.id + ')">X</button></div></div>';
+    return '<div class="erow"><div style="flex:1"><div style="font-size:13px;font-weight:700">' + e.description + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(e.date) + ' · ' + e.category + '</div>' + (e.notes ? '<div style="font-size:11px;color:#555">' + e.notes + '</div>' : '') + '</div><div style="display:flex;align-items:center;gap:8px"><div style="text-align:right"><div style="font-size:14px;font-weight:700;color:#C0392B">-' + fm(e.amountExc) + '</div><div style="font-size:10px;color:#555">GST ' + fm(e.gst) + '</div></div><button class="dbtn" data-id="' + e.id + '">🗑</button></div></div>';
   }).join('');
 }
 
 function renderTravel() {
   var el = document.getElementById('travel-list');
   if (!TL.length) { el.innerHTML = '<div class="empty">No trips logged</div>'; return; }
+  el.onclick = function(ev) { var b = ev.target.closest('[data-del-travel]'); if (b) { var id = Number(b.getAttribute('data-del-travel')); if (confirm('Delete this trip?')) { delT(id); } } };
   el.innerHTML = TL.map(function(t) {
-    return '<div class="erow"><div style="flex:1"><div style="font-size:13px;font-weight:700">' + t.client + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(t.date) + (t.startTime ? ' · ' + t.startTime : '') + '</div><div style="font-size:11px;color:#555">' + t.destination + '</div><div style="display:flex;gap:10px;margin-top:4px"><span style="font-size:11px;color:#0ABAB5;font-weight:700">' + fk(t.totalKm) + '</span>' + (t.clientCharge > 0 ? '<span style="font-size:11px;color:#E67E22">Chg: ' + fm(t.clientCharge) + '</span>' : '') + '<span style="font-size:11px;color:#1A7A4A">ATO: ' + fm(t.atoDeduction) + '</span></div></div><button class="dbtn" onclick="delT(' + t.id + ')">X</button></div>';
+    return '<div class="erow"><div style="flex:1"><div style="font-size:13px;font-weight:700">' + t.client + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(t.date) + (t.startTime ? ' · ' + t.startTime : '') + '</div><div style="font-size:11px;color:#555">' + t.destination + '</div><div style="display:flex;gap:10px;margin-top:4px"><span style="font-size:11px;color:#0ABAB5;font-weight:700">' + fk(t.totalKm) + '</span>' + (t.clientCharge > 0 ? '<span style="font-size:11px;color:#E67E22">Chg: ' + fm(t.clientCharge) + '</span>' : '') + '<span style="font-size:11px;color:#1A7A4A">ATO: ' + fm(t.atoDeduction) + '</span></div></div><button class="dbtn" data-del-travel="' + t.id + '">X</button></div>';
   }).join('');
 }
 
 function renderCalltek() {
   var el = document.getElementById('calltek-list');
   if (!CL.length) { el.innerHTML = '<div class="empty">No Calltek trips</div>'; return; }
+  el.onclick = function(ev) { var b = ev.target.closest('[data-del-calltek]'); if (b) { var id = Number(b.getAttribute('data-del-calltek')); if (confirm('Delete this trip?')) { delC(id); } } };
   el.innerHTML = CL.map(function(t) {
-    return '<div class="erow"><div style="flex:1"><div style="font-size:13px;font-weight:700">' + t.job + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(t.date) + (t.startTime ? ' · ' + t.startTime : '') + '</div>' + (t.sites ? '<div style="font-size:11px;color:#555">' + t.sites + '</div>' : '') + '<div style="display:flex;gap:10px;margin-top:4px"><span style="font-size:11px;color:#E67E22;font-weight:700">' + fk(t.totalKm) + '</span><span style="font-size:11px;color:#1A7A4A">ATO: ' + fm(t.atoDeduction) + '</span></div></div><button class="dbtn" onclick="delC(' + t.id + ')">X</button></div>';
+    return '<div class="erow"><div style="flex:1"><div style="font-size:13px;font-weight:700">' + t.job + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(t.date) + (t.startTime ? ' · ' + t.startTime : '') + '</div>' + (t.sites ? '<div style="font-size:11px;color:#555">' + t.sites + '</div>' : '') + '<div style="display:flex;gap:10px;margin-top:4px"><span style="font-size:11px;color:#E67E22;font-weight:700">' + fk(t.totalKm) + '</span><span style="font-size:11px;color:#1A7A4A">ATO: ' + fm(t.atoDeduction) + '</span></div></div><button class="dbtn" data-del-calltek="' + t.id + '">X</button></div>';
   }).join('');
 }
 
@@ -869,8 +873,9 @@ function renderLedger() {
   var sorted = E.slice().sort(function(a,b) { return new Date(b.date) - new Date(a.date); });
   var el = document.getElementById('ledger-list');
   if (!sorted.length) { el.innerHTML = '<div class="empty">No transactions yet</div>'; return; }
+  el.onclick = function(ev) { var b = ev.target.closest('.dbtn'); if (b) { var id = Number(b.getAttribute('data-id')); if (confirm('Delete this entry?')) { delE(id); } } };
   el.innerHTML = sorted.map(function(e) {
-    return '<div class="card" style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><span style="font-size:9px;padding:2px 7px;background:' + (e.type==='income'?'rgba(10,186,181,0.12)':'rgba(192,57,43,0.12)') + ';color:' + (e.type==='income'?'#0ABAB5':'#C0392B') + ';letter-spacing:1px;text-transform:uppercase">' + e.type.toUpperCase() + '</span><div style="font-size:14px;font-weight:700;margin-top:6px">' + e.description + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(e.date) + ' · ' + (e.category||'') + '</div></div><div style="text-align:right"><div style="font-size:15px;font-weight:700;color:' + (e.type==='income'?'#0ABAB5':'#C0392B') + '">' + (e.type==='income'?'+':'-') + fm(e.amountInc) + '</div><div style="font-size:10px;color:#555">inc GST</div><div style="font-size:10px;color:#555;margin-top:2px">GST: ' + fm(e.gst) + '</div><button class="dbtn" style="margin-top:6px" onclick="delE(' + e.id + ')">Del</button></div></div></div>';
+    return '<div class="card" style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><span style="font-size:9px;padding:2px 7px;background:' + (e.type==='income'?'rgba(10,186,181,0.12)':'rgba(192,57,43,0.12)') + ';color:' + (e.type==='income'?'#0ABAB5':'#C0392B') + ';letter-spacing:1px;text-transform:uppercase">' + e.type.toUpperCase() + '</span><div style="font-size:14px;font-weight:700;margin-top:6px">' + e.description + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(e.date) + ' · ' + (e.category||'') + '</div></div><div style="text-align:right"><div style="font-size:15px;font-weight:700;color:' + (e.type==='income'?'#0ABAB5':'#C0392B') + '">' + (e.type==='income'?'+':'-') + fm(e.amountInc) + '</div><div style="font-size:10px;color:#555">inc GST</div><div style="font-size:10px;color:#555;margin-top:2px">GST: ' + fm(e.gst) + '</div><button class="dbtn" style="margin-top:6px" data-id="' + e.id + '">🗑</button></div></div></div>';
   }).join('');
 }
 
@@ -1044,10 +1049,11 @@ function renderSecondHand() {
   var el = document.getElementById('sh-list');
   if (!el) return;
   if (!SH.length) { el.innerHTML = '<div class="empty">No second-hand purchases logged</div>'; return; }
+  el.onclick = function(ev) { var b = ev.target.closest('[data-del-sh]'); if (b) { var id = Number(b.getAttribute('data-del-sh')); if (confirm('Delete this record?')) { delSH(id); } } };
   el.innerHTML = SH.map(function(s) {
     var capBadge = s.capital ? '<span style="background:rgba(230,126,34,0.15);color:#E67E22;font-size:9px;padding:2px 7px;letter-spacing:1px;text-transform:uppercase;margin-left:6px">CAPITAL</span>' : '';
     var gstNote = '<span style="font-size:10px;color:#555">Private sale — no GST</span>';
-    return '<div class="card" style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div style="flex:1"><div style="font-size:13px;font-weight:700">' + s.item + capBadge + '</div><div style="font-size:11px;color:#555;margin-top:3px">' + fd(s.date) + ' · ' + s.seller + '</div><div style="font-size:11px;color:#555;margin-top:2px">Purpose: ' + (s.purpose||'—') + '</div><div style="font-size:11px;color:#555;margin-top:2px">Payment: ' + s.payment + (s.evidence ? ' · ' + s.evidence : '') + '</div><div style="margin-top:4px">' + gstNote + '</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px"><div style="font-size:16px;font-weight:900;color:#E67E22">$' + s.amount.toFixed(2) + '</div><button class="dbtn" onclick="delSH(' + s.id + ')">X</button></div></div></div>';
+    return '<div class="card" style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div style="flex:1"><div style="font-size:13px;font-weight:700">' + s.item + capBadge + '</div><div style="font-size:11px;color:#555;margin-top:3px">' + fd(s.date) + ' · ' + s.seller + '</div><div style="font-size:11px;color:#555;margin-top:2px">Purpose: ' + (s.purpose||'—') + '</div><div style="font-size:11px;color:#555;margin-top:2px">Payment: ' + s.payment + (s.evidence ? ' · ' + s.evidence : '') + '</div><div style="margin-top:4px">' + gstNote + '</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px"><div style="font-size:16px;font-weight:900;color:#E67E22">$' + s.amount.toFixed(2) + '</div><button class="dbtn" data-del-sh="' + s.id + '">X</button></div></div></div>';
   }).join('');
 }
 

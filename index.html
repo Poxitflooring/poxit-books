@@ -329,7 +329,7 @@ input[type=text],input[type=number],input[type=date],input[type=time],select{wid
 var entries=JSON.parse(localStorage.getItem('px-entries')||'[]');
 var tLog=JSON.parse(localStorage.getItem('px-travel')||'[]');
 var cLog=JSON.parse(localStorage.getItem('px-calltek')||'[]');
-var SCRIPT_URL='https://script.google.com/macros/s/AKfycbyAubUpqRPXv0L450tHvfaX87pVNiSA36dwd1tKQNCqpsmlU5zU3wqkhjGDnCSzS2yK/exec';
+var SCRIPT_URL='https://script.google.com/macros/s/AKfycbz9coZfQ0aeLlkyQrYgIZtJ7izvI1f1MgGg7JTfuSX6BAGgSI5Yu_-uyStw7QvO-Ogm/exec';
 
 function save(){localStorage.setItem('px-entries',JSON.stringify(entries));localStorage.setItem('px-travel',JSON.stringify(tLog));localStorage.setItem('px-calltek',JSON.stringify(cLog));}
 function fm(n){return '$'+Number(n||0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');}

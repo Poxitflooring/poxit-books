@@ -4,614 +4,832 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 <meta name="apple-mobile-web-app-title" content="Poxit Books"/>
 <meta name="theme-color" content="#0A0A0A"/>
 <title>Poxit Books</title>
-<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iIzBBMEEwQSIvPgogIDxyZWN0IHg9IjAiIHk9IjQ3OCIgd2lkdGg9IjUxMiIgaGVpZ2h0PSIzNCIgZmlsbD0iIzBBQkFCNSIvPgogIDx0ZXh0IHg9IjI1NiIgeT0iMjIwIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMDgiIGZvbnQtd2VpZ2h0PSI5MDAiCiAgICBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgbGV0dGVyLXNwYWNpbmc9IjQiPlBPWElUPC90ZXh0PgogIDx0ZXh0IHg9IjI1NiIgeT0iMzM1IiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSI2OCIgZm9udC13ZWlnaHQ9IjcwMCIKICAgIGZpbGw9IiMwQUJBQjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIGxldHRlci1zcGFjaW5nPSIxMCI+Qk9PS1M8L3RleHQ+CiAgPHJlY3QgeD0iODAiIHk9IjI3NSIgd2lkdGg9IjM1MiIgaGVpZ2h0PSIzIiBmaWxsPSIjMEFCQUI1IiBvcGFjaXR5PSIwLjM1Ii8+Cjwvc3ZnPg=="/>
-<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjogIlBveGl0IEJvb2tzIiwgInNob3J0X25hbWUiOiAiUG94aXQgQm9va3MiLCAic3RhcnRfdXJsIjogIi4iLCAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwgImJhY2tncm91bmRfY29sb3IiOiAiIzBBMEEwQSIsICJ0aGVtZV9jb2xvciI6ICIjMEEwQTBBIiwgImljb25zIjogW3sic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0ExTVRJZ05URXlJajRLSUNBOGNtVmpkQ0IzYVdSMGFEMGlOVEV5SWlCb1pXbG5hSFE5SWpVeE1pSWdabWxzYkQwaUl6QkJNRUV3UVNJdlBnb2dJRHh5WldOMElIZzlJakFpSUhrOUlqUTNPQ0lnZDJsa2RHZzlJalV4TWlJZ2FHVnBaMmgwUFNJek5DSWdabWxzYkQwaUl6QkJRa0ZDTlNJdlBnb2dJRHgwWlhoMElIZzlJakkxTmlJZ2VUMGlNakl3SWlCbWIyNTBMV1poYldsc2VUMGlRWEpwWVd3Z1FteGhZMnNzYzJGdWN5MXpaWEpwWmlJZ1ptOXVkQzF6YVhwbFBTSXhNRGdpSUdadmJuUXRkMlZwWjJoMFBTSTVNREFpQ2lBZ0lDQm1hV3hzUFNKM2FHbDBaU0lnZEdWNGRDMWhibU5vYjNJOUltMXBaR1JzWlNJZ1pHOXRhVzVoYm5RdFltRnpaV3hwYm1VOUltMXBaR1JzWlNJZ2JHVjBkR1Z5TFhOd1lXTnBibWM5SWpRaVBsQlBXRWxVUEM5MFpYaDBQZ29nSUR4MFpYaDBJSGc5SWpJMU5pSWdlVDBpTXpNMUlpQm1iMjUwTFdaaGJXbHNlVDBpUVhKcFlXd3NjMkZ1Y3kxelpYSnBaaUlnWm05dWRDMXphWHBsUFNJMk9DSWdabTl1ZEMxM1pXbG5hSFE5SWpjd01DSUtJQ0FnSUdacGJHdzlJaU13UVVKQlFqVWlJSFJsZUhRdFlXNWphRzl5UFNKdGFXUmtiR1VpSUdSdmJXbHVZVzUwTFdKaGMyVnNhVzVsUFNKdGFXUmtiR1VpSUd4bGRIUmxjaTF6Y0dGamFXNW5QU0l4TUNJK1FrOVBTMU04TDNSbGVIUStDaUFnUEhKbFkzUWdlRDBpT0RBaUlIazlJakkzTlNJZ2QybGtkR2c5SWpNMU1pSWdhR1ZwWjJoMFBTSXpJaUJtYVd4c1BTSWpNRUZDUVVJMUlpQnZjR0ZqYVhSNVBTSXdMak0xSWk4K0Nqd3ZjM1puUGc9PSIsICJzaXplcyI6ICI1MTJ4NTEyIiwgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCJ9XX0="/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet"/>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-:root{--teal:#0ABAB5;--dark:#0a0a0a;--card:#111111;--border:#1e1e1e;--muted:#4a4a4a;--white:#f0ede8;--green:#1A7A4A;--red:#C0392B;--amber:#E67E22;}
-body{background:var(--dark);color:var(--white);font-family:'DM Sans',sans-serif;min-height:100vh;padding-bottom:72px;}
-input,select,button{font-family:'DM Sans',sans-serif;}
-.hdr{background:#000;border-bottom:1px solid var(--border);padding:14px 18px 12px;position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;}
-.logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;}
-.logo span{color:var(--teal);}
-.logo-sub{font-size:9px;color:var(--muted);letter-spacing:1.5px;margin-top:2px;}
-.sync-btn{background:transparent;border:1px solid var(--teal);color:var(--teal);font-size:10px;letter-spacing:1px;padding:6px 12px;cursor:pointer;text-transform:uppercase;}
-.nav{display:flex;background:#000;border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{background:#0a0a0a;color:#f0ede8;font-family:-apple-system,sans-serif;min-height:100vh;padding-bottom:60px;}
+button,input,select{font-family:-apple-system,sans-serif;-webkit-appearance:none;appearance:none;}
+.hdr{background:#000;border-bottom:1px solid #1e1e1e;padding:14px 16px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;}
+.logo{font-size:18px;font-weight:900;letter-spacing:2px;}
+.logo span{color:#0ABAB5;}
+.sync{background:transparent;border:1px solid #0ABAB5;color:#0ABAB5;padding:7px 14px;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-radius:0;}
+.nav{display:flex;background:#000;border-bottom:1px solid #1e1e1e;overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .nav::-webkit-scrollbar{display:none;}
-.nav button{flex-shrink:0;padding:10px 14px;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;color:var(--muted);border:none;border-bottom:2px solid transparent;background:none;white-space:nowrap;}
-.nav button.active{color:var(--teal);border-bottom:2px solid var(--teal);}
-.wrap{padding:16px;max-width:520px;margin:0 auto;}
-.card{background:var(--card);border:1px solid var(--border);padding:16px;margin-bottom:12px;}
-.section-title{font-size:10px;letter-spacing:2px;color:var(--teal);text-transform:uppercase;margin-bottom:12px;border-left:3px solid var(--teal);padding-left:8px;}
-label.lbl{font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:5px;display:block;}
-input[type=text],input[type=number],input[type=date],input[type=time],select{width:100%;background:#0e0e0e;border:1px solid var(--border);color:var(--white);padding:10px 12px;font-size:14px;outline:none;appearance:none;-webkit-appearance:none;}
+.nav button{flex-shrink:0;padding:12px 14px;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#555;border:none;border-bottom:2px solid transparent;background:none;cursor:pointer;white-space:nowrap;}
+.nav button.on{color:#0ABAB5;border-bottom:2px solid #0ABAB5;}
+.wrap{padding:16px;max-width:500px;margin:0 auto;}
+.pg{display:none;}.pg.on{display:block;}
+.sec{font-size:10px;letter-spacing:2px;color:#0ABAB5;text-transform:uppercase;margin:16px 0 10px;padding-left:8px;border-left:3px solid #0ABAB5;}
+.card{background:#111;border:1px solid #1e1e1e;padding:16px;margin-bottom:12px;}
+.lbl{font-size:10px;letter-spacing:1px;color:#555;text-transform:uppercase;display:block;margin-bottom:5px;}
+input[type=text],input[type=number],input[type=date],input[type=time],select{width:100%;background:#0e0e0e;border:1px solid #1e1e1e;color:#f0ede8;padding:11px 12px;font-size:15px;outline:none;border-radius:0;display:block;}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
-.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
-.field{margin-bottom:12px;}
-.btn-primary{background:var(--teal);color:#000;border:none;padding:13px 24px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;width:100%;}
-.btn-ghost{background:transparent;color:var(--teal);border:1px solid var(--teal);padding:11px 18px;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;width:100%;margin-top:8px;}
-.btn-danger{background:transparent;color:var(--red);border:1px solid var(--red);padding:6px 10px;font-size:10px;cursor:pointer;}
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
-.stat-card{background:var(--card);border:1px solid var(--border);padding:13px 14px;}
-.stat-val{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;}
-.stat-lbl{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:3px;}
-.big-num{font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--teal);letter-spacing:2px;line-height:1;}
-.info-box{background:rgba(10,186,181,0.06);border:1px solid rgba(10,186,181,0.15);padding:10px 14px;margin-bottom:12px;font-size:12px;line-height:1.7;}
-.info-box.amber{background:rgba(230,126,34,0.06);border:1px solid rgba(230,126,34,0.2);}
-.info-box.red{background:rgba(192,57,43,0.06);border:1px solid rgba(192,57,43,0.2);}
-.entry-row{display:flex;align-items:flex-start;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);}
-.photo-box{border:2px dashed var(--border);padding:18px 12px;text-align:center;cursor:pointer;margin-bottom:8px;}
-.photo-icon{font-size:28px;margin-bottom:4px;}
-.photo-lbl{font-size:12px;color:var(--muted);}
-.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
-.result-card{background:var(--card);border:1px solid var(--border);padding:13px 14px;}
-.result-val{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;}
-.result-lbl{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:3px;}
-.gst-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;}
-.calltek-hdr{background:linear-gradient(135deg,#1a1a1a,#0f0f0f);border:1px solid rgba(230,126,34,0.3);padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
-.calltek-badge{background:var(--amber);color:#000;font-size:9px;font-weight:700;letter-spacing:2px;padding:3px 8px;text-transform:uppercase;}
-.check-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
-.check-row input{width:18px;height:18px;accent-color:var(--teal);}
-.check-row label{font-size:13px;color:var(--muted);}
-.empty{color:var(--muted);font-size:13px;text-align:center;padding:30px 20px;}
-.hidden{display:none;}
-.page{display:none;}.page.active{display:block;}
-.scanning{color:var(--teal);font-size:12px;padding:8px 0;text-align:center;}
-.badge-i{font-size:9px;padding:2px 7px;background:rgba(10,186,181,0.12);color:var(--teal);border:1px solid rgba(10,186,181,0.3);text-transform:uppercase;}
-.badge-e{font-size:9px;padding:2px 7px;background:rgba(192,57,43,0.12);color:var(--red);border:1px solid rgba(192,57,43,0.3);text-transform:uppercase;}
-#toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:var(--teal);color:#000;padding:10px 20px;font-size:12px;font-weight:700;letter-spacing:1px;opacity:0;transition:opacity 0.3s;z-index:999;pointer-events:none;text-transform:uppercase;white-space:nowrap;}
+.mb{margin-bottom:12px;}
+.btn{background:#0ABAB5;color:#000;border:none;padding:14px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;width:100%;border-radius:0;display:block;}
+.gbtn{background:transparent;color:#0ABAB5;border:1px solid #0ABAB5;padding:12px;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;width:100%;border-radius:0;margin-top:8px;display:block;}
+.dbtn{background:transparent;color:#C0392B;border:1px solid #C0392B;padding:7px 10px;font-size:10px;cursor:pointer;border-radius:0;}
+.stat2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.stat3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;}
+.sc{background:#111;border:1px solid #1e1e1e;padding:12px;}
+.sv{font-size:20px;font-weight:900;letter-spacing:1px;margin-bottom:2px;}
+.sl{font-size:9px;color:#555;letter-spacing:1px;text-transform:uppercase;}
+.erow{display:flex;justify-content:space-between;align-items:flex-start;padding:12px 0;border-bottom:1px solid #1e1e1e;}
+.info{background:rgba(10,186,181,0.07);border:1px solid rgba(10,186,181,0.2);padding:10px 14px;margin-bottom:12px;font-size:12px;line-height:1.7;}
+.warn{background:rgba(230,126,34,0.07);border:1px solid rgba(230,126,34,0.2);padding:10px 14px;margin-bottom:12px;font-size:12px;line-height:1.7;}
+.grow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1e1e1e;font-size:13px;}
+.empty{color:#555;text-align:center;padding:30px;font-size:13px;}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#0ABAB5;color:#000;padding:10px 20px;font-size:12px;font-weight:700;opacity:0;transition:opacity 0.3s;z-index:999;pointer-events:none;white-space:nowrap;letter-spacing:1px;}
+.photo-box{border:2px dashed #1e1e1e;padding:20px;text-align:center;margin-bottom:10px;cursor:pointer;}
+.photo-box img{width:100%;max-height:120px;object-fit:cover;margin-bottom:6px;}
+.scan-val{color:#0ABAB5;font-size:20px;font-weight:900;margin-top:6px;}
+.calltek-bar{background:linear-gradient(135deg,#1a1a1a,#111);border:1px solid rgba(230,126,34,0.3);padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.ct-badge{background:#E67E22;color:#000;font-size:9px;font-weight:700;letter-spacing:2px;padding:3px 8px;text-transform:uppercase;}
 </style>
 </head>
 <body>
+
 <div class="hdr">
   <div>
     <div class="logo">POXIT <span>BOOKS</span></div>
-    <div class="logo-sub">FINANCE &amp; TRAVEL TRACKER</div>
+    <div style="font-size:9px;color:#555;letter-spacing:1px;margin-top:2px">FINANCE &amp; TRAVEL</div>
   </div>
-  <button class="sync-btn" onclick="syncToSheets()">SYNC</button>
+  <button class="sync" id="syncBtn">SYNC</button>
 </div>
-<div class="nav">
-  <button class="active" onclick="showPage('dashboard',this)">Dashboard</button>
-  <button onclick="showPage('income',this)">Income</button>
-  <button onclick="showPage('expenses',this)">Expenses</button>
-  <button onclick="showPage('travel',this)">Poxit Travel</button>
-  <button onclick="showPage('calltek',this)">Calltek</button>
-  <button onclick="showPage('ledger',this)">Ledger</button>
-  <button onclick="showPage('gst',this)">GST</button>
+
+<div class="nav" id="nav">
+  <button class="on" data-page="dash">Dashboard</button>
+  <button data-page="income">Income</button>
+  <button data-page="expenses">Expenses</button>
+  <button data-page="travel">Poxit Travel</button>
+  <button data-page="calltek">Calltek</button>
+  <button data-page="ledger">Ledger</button>
+  <button data-page="gst">GST</button>
 </div>
+
 <div class="wrap">
 
 <!-- DASHBOARD -->
-<div id="pg-dashboard" class="page active">
-  <div class="section-title">Financial Summary</div>
-  <div class="stat-grid">
-    <div class="stat-card"><div class="stat-val" style="color:var(--teal)" id="d-inc">$0.00</div><div class="stat-lbl">Total Income</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:var(--red)" id="d-exp">$0.00</div><div class="stat-lbl">Total Expenses</div></div>
-    <div class="stat-card"><div class="stat-val" id="d-profit">$0.00</div><div class="stat-lbl">Net Profit</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:var(--amber)" id="d-gst">$0.00</div><div class="stat-lbl">GST Owing</div></div>
+<div id="pg-dash" class="pg on">
+  <div class="sec">Financial Summary</div>
+  <div class="stat2">
+    <div class="sc"><div class="sv" id="d-inc" style="color:#0ABAB5">$0.00</div><div class="sl">Total Income</div></div>
+    <div class="sc"><div class="sv" id="d-exp" style="color:#C0392B">$0.00</div><div class="sl">Total Expenses</div></div>
+    <div class="sc"><div class="sv" id="d-profit">$0.00</div><div class="sl">Net Profit</div></div>
+    <div class="sc"><div class="sv" id="d-gst" style="color:#E67E22">$0.00</div><div class="sl">GST Owing</div></div>
   </div>
-  <div class="section-title">Travel YTD</div>
-  <div class="row3">
-    <div class="stat-card"><div class="stat-val" style="color:var(--teal)" id="d-pkm">0km</div><div class="stat-lbl">Poxit km</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:var(--amber)" id="d-ckm">0km</div><div class="stat-lbl">Calltek km</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:var(--green)" id="d-ato">$0</div><div class="stat-lbl">ATO Claim</div></div>
+  <div class="sec">Travel YTD</div>
+  <div class="stat3">
+    <div class="sc"><div class="sv" id="d-pkm" style="color:#0ABAB5;font-size:16px">0km</div><div class="sl">Poxit km</div></div>
+    <div class="sc"><div class="sv" id="d-ckm" style="color:#E67E22;font-size:16px">0km</div><div class="sl">Calltek km</div></div>
+    <div class="sc"><div class="sv" id="d-ato" style="color:#1A7A4A;font-size:16px">$0</div><div class="sl">ATO Claim</div></div>
   </div>
-  <div class="section-title">Recent</div>
-  <div id="d-recent"><div class="empty">No entries yet.</div></div>
-  <div style="display:flex;gap:10px;margin-top:12px;">
-    <button class="btn-ghost" onclick="showPage('income',document.querySelectorAll('.nav button')[1])">+ Income</button>
-    <button class="btn-ghost" onclick="showPage('expenses',document.querySelectorAll('.nav button')[2])">+ Expense</button>
+  <div class="sec">Recent</div>
+  <div id="d-recent"><div class="empty">No entries yet</div></div>
+  <div style="display:flex;gap:8px;margin-top:12px">
+    <button class="gbtn" style="margin:0" id="goIncome">+ Income</button>
+    <button class="gbtn" style="margin:0" id="goExp">+ Expense</button>
   </div>
 </div>
 
 <!-- INCOME -->
-<div id="pg-income" class="page">
-  <div class="section-title">Add Income</div>
+<div id="pg-income" class="pg">
+  <div class="sec">Add Income</div>
   <div class="card">
     <div class="row2">
-      <div class="field"><label class="lbl">Date</label><input type="date" id="i-date"/></div>
-      <div class="field"><label class="lbl">Service</label>
-        <select id="i-svc"><option value="">Select...</option><option>Epoxy Coating</option><option>Pressure Washing</option><option>Crack Repair</option><option>Spalling Repair</option><option>Concrete Sealing</option><option>Grinding/Prep</option><option>Care Plan</option><option>Pro Plan</option><option>Other</option></select>
+      <div class="mb"><label class="lbl">Date</label><input type="date" id="i-date"/></div>
+      <div class="mb"><label class="lbl">Service</label>
+        <select id="i-svc">
+          <option value="">Select...</option>
+          <option>Epoxy Coating</option><option>Pressure Washing</option>
+          <option>Crack Repair</option><option>Spalling Repair</option>
+          <option>Concrete Sealing</option><option>Grinding/Prep</option>
+          <option>Care Plan</option><option>Pro Plan</option><option>Other</option>
+        </select>
       </div>
     </div>
-    <div class="field"><label class="lbl">Client Name</label><input type="text" id="i-client" placeholder="e.g. Warren Gray"/></div>
+    <div class="mb"><label class="lbl">Client Name</label><input type="text" id="i-client" placeholder="e.g. Warren Gray"/></div>
     <div class="row2">
-      <div class="field"><label class="lbl">Amount ($)</label><input type="number" id="i-amt" placeholder="0.00" oninput="calcGST('i')"/></div>
-      <div class="field"><label class="lbl">GST</label><select id="i-gst" onchange="calcGST('i')"><option value="inc">Inc. GST</option><option value="exc">Exc. GST</option></select></div>
+      <div class="mb"><label class="lbl">Amount ($)</label><input type="number" id="i-amt" placeholder="0.00"/></div>
+      <div class="mb"><label class="lbl">GST</label>
+        <select id="i-gst"><option value="inc">Inc. GST</option><option value="exc">Exc. GST</option></select>
+      </div>
     </div>
-    <div id="i-calc" class="info-box hidden"></div>
-    <div class="field"><label class="lbl">Notes</label><input type="text" id="i-notes" placeholder="Optional"/></div>
-    <div class="check-row"><input type="checkbox" id="i-paid" checked/><label for="i-paid">Payment received</label></div>
-    <button class="btn-primary" onclick="addIncome()">Add Income Entry</button>
+    <div id="i-calc" style="display:none" class="info"></div>
+    <div class="mb"><label class="lbl">Notes</label><input type="text" id="i-notes" placeholder="Optional"/></div>
+    <div class="mb" style="display:flex;align-items:center;gap:10px">
+      <input type="checkbox" id="i-paid" checked style="width:18px;height:18px;accent-color:#0ABAB5"/>
+      <label for="i-paid" style="font-size:13px;color:#555">Payment received</label>
+    </div>
+    <button class="btn" id="addIncomeBtn">Add Income Entry</button>
   </div>
-  <div class="section-title" style="margin-top:4px">Income History</div>
-  <div id="income-list"><div class="empty">No income entries yet.</div></div>
+  <div class="sec">Income History</div>
+  <div id="income-list"><div class="empty">No income yet</div></div>
 </div>
 
 <!-- EXPENSES -->
-<div id="pg-expenses" class="page">
-  <div class="section-title">Scan Receipt</div>
+<div id="pg-expenses" class="pg">
+  <div class="sec">Scan Receipt</div>
   <div class="card">
-    <div class="photo-box" onclick="document.getElementById('rcpt-file').click()">
-      <div id="rcpt-prev"><div class="photo-icon">&#128247;</div><div class="photo-lbl">Tap to upload receipt — AI reads it automatically</div></div>
-    </div>
-    <input type="file" id="rcpt-file" accept="image/*" capture="environment" style="display:none" onchange="scanReceipt(this)"/>
-    <div id="scan-status"></div>
-  </div>
-  <div class="section-title">Add Expense</div>
-  <div class="card">
-    <div class="row2">
-      <div class="field"><label class="lbl">Date</label><input type="date" id="e-date"/></div>
-      <div class="field"><label class="lbl">Category</label>
-        <select id="e-cat"><option value="">Select...</option><option>Materials</option><option>Equipment</option><option>Fuel</option><option>Subcontractors</option><option>Tools</option><option>Marketing</option><option>Insurance</option><option>Vehicle</option><option>Phone/Internet</option><option>Office</option><option>Software</option><option>Training</option><option>Other</option></select>
+    <div class="photo-box" id="rcptBox">
+      <div id="rcpt-prev">
+        <div style="font-size:30px">📷</div>
+        <div style="font-size:12px;color:#555;margin-top:4px">Tap to upload receipt — AI reads it</div>
       </div>
     </div>
-    <div class="field"><label class="lbl">Supplier</label><input type="text" id="e-sup" placeholder="e.g. Bunnings, XO2"/></div>
-    <div class="row2">
-      <div class="field"><label class="lbl">Amount ($)</label><input type="number" id="e-amt" placeholder="0.00" oninput="calcGST('e')"/></div>
-      <div class="field"><label class="lbl">GST</label><select id="e-gst" onchange="calcGST('e')"><option value="inc">Inc. GST</option><option value="exc">Exc. GST</option></select></div>
-    </div>
-    <div id="e-calc" class="info-box hidden"></div>
-    <div class="field"><label class="lbl">Notes</label><input type="text" id="e-notes" placeholder="What was purchased?"/></div>
-    <button class="btn-primary" onclick="addExpense()">Add Expense Entry</button>
+    <input type="file" id="rcpt-file" accept="image/*" style="display:none"/>
+    <div id="scan-status"></div>
   </div>
-  <div class="section-title" style="margin-top:4px">Expense History</div>
-  <div id="expense-list"><div class="empty">No expenses yet.</div></div>
+  <div class="sec">Add Expense</div>
+  <div class="card">
+    <div class="row2">
+      <div class="mb"><label class="lbl">Date</label><input type="date" id="e-date"/></div>
+      <div class="mb"><label class="lbl">Category</label>
+        <select id="e-cat">
+          <option value="">Select...</option>
+          <option>Materials</option><option>Equipment</option><option>Fuel</option>
+          <option>Subcontractors</option><option>Tools</option><option>Marketing</option>
+          <option>Insurance</option><option>Vehicle</option><option>Phone/Internet</option>
+          <option>Office</option><option>Software</option><option>Training</option><option>Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="mb"><label class="lbl">Supplier</label><input type="text" id="e-sup" placeholder="e.g. Bunnings, XO2"/></div>
+    <div class="row2">
+      <div class="mb"><label class="lbl">Amount ($)</label><input type="number" id="e-amt" placeholder="0.00"/></div>
+      <div class="mb"><label class="lbl">GST</label>
+        <select id="e-gst"><option value="inc">Inc. GST</option><option value="exc">Exc. GST</option></select>
+      </div>
+    </div>
+    <div id="e-calc" style="display:none" class="info"></div>
+    <div class="mb"><label class="lbl">Notes</label><input type="text" id="e-notes" placeholder="What was purchased?"/></div>
+    <button class="btn" id="addExpBtn">Add Expense Entry</button>
+  </div>
+  <div class="sec">Expense History</div>
+  <div id="expense-list"><div class="empty">No expenses yet</div></div>
 </div>
 
 <!-- POXIT TRAVEL -->
-<div id="pg-travel" class="page">
-  <div class="info-box">
-    <span style="color:var(--teal);font-size:10px;letter-spacing:1.5px;">ATO REQUIREMENTS</span><br/>
-    Date · Start/end odometer · Destination · Purpose<br/>
-    <strong style="color:var(--white)">$0.88/km</strong> cents-per-km — no logbook up to 5,000km/yr
+<div id="pg-travel" class="pg">
+  <div class="info">
+    <span style="color:#0ABAB5;font-size:10px;letter-spacing:1px">ATO REQUIREMENTS</span><br/>
+    Date · Odometer · Destination · Purpose<br/>
+    <strong style="color:#f0ede8">$0.88/km</strong> — no logbook up to 5,000km/yr
   </div>
-  <div class="section-title">Trip Details</div>
+  <div class="sec">Trip Details</div>
   <div class="card">
     <div class="row2">
-      <div class="field"><label class="lbl">Date</label><input type="date" id="t-date"/></div>
-      <div class="field"><label class="lbl">Start Time</label><input type="time" id="t-stime"/></div>
+      <div class="mb"><label class="lbl">Date</label><input type="date" id="t-date"/></div>
+      <div class="mb"><label class="lbl">Start Time</label><input type="time" id="t-stime"/></div>
     </div>
-    <div class="field"><label class="lbl">Client / Job</label><input type="text" id="t-client" placeholder="e.g. Darren Ames"/></div>
-    <div class="field"><label class="lbl">Destination</label><input type="text" id="t-dest" placeholder="e.g. Helensvale QLD 4212"/></div>
-    <div class="field"><label class="lbl">Purpose</label>
-      <select id="t-purpose"><option>Client job / service call</option><option>Materials pickup</option><option>Quote / site inspection</option><option>Equipment hire / return</option><option>Supplier visit</option><option>Tool repair / maintenance</option><option>Other business travel</option></select>
+    <div class="mb"><label class="lbl">Client / Job</label><input type="text" id="t-client" placeholder="e.g. Darren Ames"/></div>
+    <div class="mb"><label class="lbl">Destination</label><input type="text" id="t-dest" placeholder="e.g. Helensvale QLD 4212"/></div>
+    <div class="mb"><label class="lbl">Purpose</label>
+      <select id="t-purpose">
+        <option>Client job / service call</option>
+        <option>Materials pickup</option>
+        <option>Quote / site inspection</option>
+        <option>Equipment hire / return</option>
+        <option>Supplier visit</option>
+        <option>Tool repair / maintenance</option>
+        <option>Other business travel</option>
+      </select>
     </div>
-    <div class="field"><label class="lbl">Notes</label><input type="text" id="t-notes" placeholder="ATO record detail"/></div>
+    <div class="mb"><label class="lbl">Notes</label><input type="text" id="t-notes" placeholder="ATO record detail"/></div>
   </div>
-  <div class="section-title">Start Odometer</div>
+  <div class="sec">Start Odometer</div>
   <div class="card">
-    <div class="photo-box" onclick="document.getElementById('ts-file').click()">
-      <div id="ts-prev"><div class="photo-icon">&#128247;</div><div class="photo-lbl">Photo start odometer</div></div>
-    </div>
-    <input type="file" id="ts-file" accept="image/*" capture="environment" style="display:none" onchange="scanOdo(this,'ts-prev','t-sodo')"/>
-    <div class="field" style="margin-top:8px"><label class="lbl">Or type reading</label><input type="number" id="t-sodo" placeholder="e.g. 48250" oninput="calcTravel()"/></div>
+    <div class="photo-box" id="tsBox"><div id="ts-prev"><div style="font-size:28px">📷</div><div style="font-size:12px;color:#555">Photo start odometer</div></div></div>
+    <input type="file" id="ts-file" accept="image/*" capture="environment" style="display:none"/>
+    <div class="mb"><label class="lbl">Or type reading</label><input type="number" id="t-sodo" placeholder="e.g. 48250"/></div>
   </div>
-  <div class="section-title">End Odometer</div>
+  <div class="sec">End Odometer</div>
   <div class="card">
-    <div class="photo-box" onclick="document.getElementById('te-file').click()">
-      <div id="te-prev"><div class="photo-icon">&#128247;</div><div class="photo-lbl">Photo end odometer</div></div>
-    </div>
-    <input type="file" id="te-file" accept="image/*" capture="environment" style="display:none" onchange="scanOdo(this,'te-prev','t-eodo')"/>
-    <div class="row2" style="margin-top:8px">
-      <div class="field"><label class="lbl">Or type reading</label><input type="number" id="t-eodo" placeholder="e.g. 48312" oninput="calcTravel()"/></div>
-      <div class="field"><label class="lbl">End Time</label><input type="time" id="t-etime"/></div>
+    <div class="photo-box" id="teBox"><div id="te-prev"><div style="font-size:28px">📷</div><div style="font-size:12px;color:#555">Photo end odometer</div></div></div>
+    <input type="file" id="te-file" accept="image/*" capture="environment" style="display:none"/>
+    <div class="row2">
+      <div class="mb"><label class="lbl">Or type reading</label><input type="number" id="t-eodo" placeholder="e.g. 48312"/></div>
+      <div class="mb"><label class="lbl">End Time</label><input type="time" id="t-etime"/></div>
     </div>
   </div>
-  <div id="travel-result" class="hidden">
-    <div class="section-title">Result</div>
-    <div class="card" style="text-align:center;padding:20px 16px">
-      <div style="font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:4px;">TOTAL KM</div>
-      <div class="big-num" id="tr-km">0 km</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:4px;margin-bottom:16px;" id="tr-zone"></div>
-      <div class="result-grid">
-        <div class="result-card"><div class="result-val" style="color:var(--teal)" id="tr-chg">$0.00</div><div class="result-lbl">Client Charge<br/>$1.75/km over 25km</div></div>
-        <div class="result-card"><div class="result-val" style="color:var(--green)" id="tr-ato">$0.00</div><div class="result-lbl">ATO Deduction<br/>$0.88/km total</div></div>
+  <div id="travel-result" style="display:none">
+    <div class="sec">Result</div>
+    <div class="card" style="text-align:center;padding:20px">
+      <div style="font-size:10px;color:#555;letter-spacing:2px;margin-bottom:4px">TOTAL KM</div>
+      <div style="font-size:44px;font-weight:900;color:#0ABAB5;letter-spacing:2px" id="tr-km">0 km</div>
+      <div style="font-size:11px;color:#555;margin:6px 0 16px" id="tr-zone"></div>
+      <div class="stat2">
+        <div class="sc"><div class="sv" id="tr-chg" style="color:#0ABAB5;font-size:22px">$0.00</div><div class="sl">Client Charge<br/>$1.75/km &gt;25km</div></div>
+        <div class="sc"><div class="sv" id="tr-ato" style="color:#1A7A4A;font-size:22px">$0.00</div><div class="sl">ATO Deduction<br/>$0.88/km</div></div>
       </div>
     </div>
-    <button class="btn-primary" onclick="saveTravel()">Save to Log</button>
+    <button class="btn" id="saveTravelBtn">Save Trip</button>
   </div>
-  <div class="section-title" style="margin-top:16px">Poxit Travel Log</div>
-  <div id="travel-list"><div class="empty">No trips logged.</div></div>
-  <button class="btn-ghost" onclick="exportCSV('poxit')">Export CSV for Accountant</button>
+  <div class="sec" style="margin-top:16px">Poxit Travel Log</div>
+  <div id="travel-list"><div class="empty">No trips logged</div></div>
+  <button class="gbtn" id="exportPoxitBtn">Export CSV</button>
 </div>
 
 <!-- CALLTEK -->
-<div id="pg-calltek" class="page">
-  <div class="calltek-hdr">
-    <span class="calltek-badge">CALLTEK</span>
-    <span style="font-size:12px;color:var(--muted);">Own car — kept separate from Poxit</span>
+<div id="pg-calltek" class="pg">
+  <div class="calltek-bar"><span class="ct-badge">CALLTEK</span><span style="font-size:12px;color:#555">Own car — separate from Poxit</span></div>
+  <div class="warn">
+    <span style="color:#E67E22;font-size:10px;letter-spacing:1px">ATO RULES</span><br/>
+    <strong style="color:#f0ede8">Home to first site:</strong> NOT claimable<br/>
+    <strong style="color:#f0ede8">Site to site:</strong> YES claimable<br/>
+    Rate: <strong style="color:#f0ede8">$0.88/km</strong>
   </div>
-  <div class="info-box amber">
-    <span style="color:var(--amber);font-size:10px;letter-spacing:1.5px;">ATO RULES — CALLTEK</span><br/>
-    <strong style="color:var(--white)">Home to first site:</strong> NOT claimable (commute)<br/>
-    <strong style="color:var(--white)">Site to site:</strong> YES claimable<br/>
-    <strong style="color:var(--white)">Last site to home:</strong> NOT claimable<br/>
-    Rate: <strong style="color:var(--white)">$0.88/km</strong> on claimable trips only
-  </div>
-  <div class="section-title">Trip Details</div>
+  <div class="sec">Trip Details</div>
   <div class="card">
     <div class="row2">
-      <div class="field"><label class="lbl">Date</label><input type="date" id="c-date"/></div>
-      <div class="field"><label class="lbl">Start Time</label><input type="time" id="c-stime"/></div>
+      <div class="mb"><label class="lbl">Date</label><input type="date" id="c-date"/></div>
+      <div class="mb"><label class="lbl">Start Time</label><input type="time" id="c-stime"/></div>
     </div>
-    <div class="field"><label class="lbl">Job / Work Order</label><input type="text" id="c-job" placeholder="e.g. Calltek WO #1234"/></div>
-    <div class="field"><label class="lbl">Sites Visited</label><input type="text" id="c-sites" placeholder="e.g. Southport, Labrador, Nerang"/></div>
-    <div class="field"><label class="lbl">Trip Type</label>
+    <div class="mb"><label class="lbl">Job / Work Order</label><input type="text" id="c-job" placeholder="e.g. Calltek WO #1234"/></div>
+    <div class="mb"><label class="lbl">Sites Visited</label><input type="text" id="c-sites" placeholder="e.g. Southport, Labrador"/></div>
+    <div class="mb"><label class="lbl">Trip Type</label>
       <select id="c-type">
         <option value="site-to-site">Site to site (claimable)</option>
-        <option value="home-to-site">Home to first site (check bulky tools)</option>
-        <option value="site-to-home">Last site to home (not claimable)</option>
+        <option value="home-to-site">Home to first site</option>
+        <option value="site-to-home">Last site to home</option>
         <option value="other">Other</option>
       </select>
     </div>
-    <div class="field"><label class="lbl">Notes</label><input type="text" id="c-notes" placeholder="Tools carried, purpose etc."/></div>
+    <div class="mb"><label class="lbl">Notes</label><input type="text" id="c-notes" placeholder="Tools carried, purpose etc."/></div>
   </div>
-  <div class="section-title">Start Odometer</div>
+  <div class="sec">Start Odometer</div>
   <div class="card">
-    <div class="photo-box" onclick="document.getElementById('cs-file').click()">
-      <div id="cs-prev"><div class="photo-icon">&#128247;</div><div class="photo-lbl">Photo start odometer</div></div>
-    </div>
-    <input type="file" id="cs-file" accept="image/*" capture="environment" style="display:none" onchange="scanOdo(this,'cs-prev','c-sodo')"/>
-    <div class="field" style="margin-top:8px"><label class="lbl">Or type reading</label><input type="number" id="c-sodo" placeholder="e.g. 48250" oninput="calcCalltek()"/></div>
+    <div class="photo-box" id="csBox"><div id="cs-prev"><div style="font-size:28px">📷</div><div style="font-size:12px;color:#555">Photo start odometer</div></div></div>
+    <input type="file" id="cs-file" accept="image/*" capture="environment" style="display:none"/>
+    <div class="mb"><label class="lbl">Or type reading</label><input type="number" id="c-sodo" placeholder="e.g. 48250"/></div>
   </div>
-  <div class="section-title">End Odometer</div>
+  <div class="sec">End Odometer</div>
   <div class="card">
-    <div class="photo-box" onclick="document.getElementById('ce-file').click()">
-      <div id="ce-prev"><div class="photo-icon">&#128247;</div><div class="photo-lbl">Photo end odometer</div></div>
-    </div>
-    <input type="file" id="ce-file" accept="image/*" capture="environment" style="display:none" onchange="scanOdo(this,'ce-prev','c-eodo')"/>
-    <div class="row2" style="margin-top:8px">
-      <div class="field"><label class="lbl">Or type reading</label><input type="number" id="c-eodo" placeholder="e.g. 48312" oninput="calcCalltek()"/></div>
-      <div class="field"><label class="lbl">End Time</label><input type="time" id="c-etime"/></div>
+    <div class="photo-box" id="ceBox"><div id="ce-prev"><div style="font-size:28px">📷</div><div style="font-size:12px;color:#555">Photo end odometer</div></div></div>
+    <input type="file" id="ce-file" accept="image/*" capture="environment" style="display:none"/>
+    <div class="row2">
+      <div class="mb"><label class="lbl">Or type reading</label><input type="number" id="c-eodo" placeholder="e.g. 48312"/></div>
+      <div class="mb"><label class="lbl">End Time</label><input type="time" id="c-etime"/></div>
     </div>
   </div>
-  <div id="calltek-result" class="hidden">
-    <div class="section-title">Result</div>
-    <div class="card" style="text-align:center;padding:20px 16px">
-      <div style="font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:4px;">TOTAL KM THIS TRIP</div>
-      <div class="big-num" style="color:var(--amber)" id="cr-km">0 km</div>
-      <div class="result-grid" style="margin-top:16px">
-        <div class="result-card"><div class="result-val" style="color:var(--green)" id="cr-ato">$0.00</div><div class="result-lbl">ATO Deduction<br/>$0.88/km</div></div>
-        <div class="result-card"><div class="result-val" style="color:var(--amber)" id="cr-ytd">0km</div><div class="result-lbl">Calltek km<br/>YTD</div></div>
+  <div id="calltek-result" style="display:none">
+    <div class="sec">Result</div>
+    <div class="card" style="text-align:center;padding:20px">
+      <div style="font-size:10px;color:#555;letter-spacing:2px;margin-bottom:4px">TOTAL KM</div>
+      <div style="font-size:44px;font-weight:900;color:#E67E22;letter-spacing:2px" id="cr-km">0 km</div>
+      <div class="stat2" style="margin-top:16px">
+        <div class="sc"><div class="sv" id="cr-ato" style="color:#1A7A4A;font-size:22px">$0.00</div><div class="sl">ATO Deduction</div></div>
+        <div class="sc"><div class="sv" id="cr-ytd" style="color:#E67E22;font-size:22px">0km</div><div class="sl">Calltek YTD</div></div>
       </div>
-      <div id="cr-warn" style="font-size:11px;margin-top:8px;"></div>
+      <div id="cr-warn" style="font-size:11px;margin-top:8px"></div>
     </div>
-    <button class="btn-primary" onclick="saveCalltek()">Save to Calltek Log</button>
+    <button class="btn" id="saveCalltekBtn">Save Calltek Trip</button>
   </div>
-  <div class="section-title" style="margin-top:16px">Calltek Log</div>
-  <div id="calltek-list"><div class="empty">No Calltek trips logged.</div></div>
-  <button class="btn-ghost" onclick="exportCSV('calltek')">Export Calltek CSV</button>
+  <div class="sec" style="margin-top:16px">Calltek Log</div>
+  <div id="calltek-list"><div class="empty">No Calltek trips</div></div>
+  <button class="gbtn" id="exportCalltekBtn">Export Calltek CSV</button>
 </div>
 
 <!-- LEDGER -->
-<div id="pg-ledger" class="page">
-  <div class="section-title">Full Transaction Ledger</div>
-  <div id="ledger-list"><div class="empty">No transactions yet.</div></div>
+<div id="pg-ledger" class="pg">
+  <div class="sec">Full Ledger</div>
+  <div id="ledger-list"><div class="empty">No transactions yet</div></div>
 </div>
 
 <!-- GST -->
-<div id="pg-gst" class="page">
-  <div class="section-title">GST / BAS Summary</div>
+<div id="pg-gst" class="pg">
+  <div class="sec">GST / BAS Summary</div>
   <div class="card">
-    <div class="gst-row"><span style="color:var(--teal);font-size:11px;font-weight:700">ITEM</span><span style="color:var(--teal);font-size:11px;font-weight:700">AMOUNT</span></div>
-    <div class="gst-row"><span>Total Sales exc. GST (G1)</span><span style="color:var(--teal);font-weight:600" id="g-sales">$0.00</span></div>
-    <div class="gst-row"><span>GST Collected (1A)</span><span style="color:var(--teal);font-weight:600" id="g-1a">$0.00</span></div>
+    <div class="grow"><span style="color:#0ABAB5;font-size:11px;font-weight:700">ITEM</span><span style="color:#0ABAB5;font-size:11px;font-weight:700">AMOUNT</span></div>
+    <div class="grow"><span>Total Sales exc. GST (G1)</span><span style="color:#0ABAB5;font-weight:600" id="g-sales">$0.00</span></div>
+    <div class="grow"><span>GST Collected (1A)</span><span style="color:#0ABAB5;font-weight:600" id="g-1a">$0.00</span></div>
     <div style="height:8px"></div>
-    <div class="gst-row"><span>Total Purchases exc. GST (G10)</span><span style="color:var(--red);font-weight:600" id="g-purch">$0.00</span></div>
-    <div class="gst-row"><span>GST Credits (1B)</span><span style="color:var(--red);font-weight:600" id="g-1b">$0.00</span></div>
+    <div class="grow"><span>Total Purchases exc. GST</span><span style="color:#C0392B;font-weight:600" id="g-purch">$0.00</span></div>
+    <div class="grow"><span>GST Credits (1B)</span><span style="color:#C0392B;font-weight:600" id="g-1b">$0.00</span></div>
     <div style="height:8px"></div>
-    <div class="gst-row" style="border-top:1px solid var(--teal);padding-top:12px">
+    <div class="grow" style="border-top:1px solid #0ABAB5;padding-top:12px">
       <span style="font-weight:700;font-size:15px">Net GST Payable</span>
-      <span style="font-weight:700;font-size:18px;color:var(--amber)" id="g-net">$0.00</span>
+      <span style="font-weight:700;font-size:18px;color:#E67E22" id="g-net">$0.00</span>
     </div>
   </div>
-  <div class="info-box">
-    <span style="color:var(--teal);font-size:10px;letter-spacing:1.5px">BAS GUIDE</span><br/>
-    <strong style="color:var(--white)">1A</strong> = GST collected, pay to ATO<br/>
-    <strong style="color:var(--white)">1B</strong> = GST credits on purchases, claim back<br/>
-    <strong style="color:var(--white)">Net = 1A minus 1B</strong><br/>
-    ABN: <strong style="color:var(--white)">11 743 009 073</strong>
+  <div class="info">
+    <span style="color:#0ABAB5;font-size:10px;letter-spacing:1px">BAS GUIDE</span><br/>
+    1A = GST collected, pay to ATO<br/>
+    1B = GST credits on purchases, claim back<br/>
+    Net = 1A minus 1B<br/>
+    ABN: <strong style="color:#f0ede8">11 743 009 073</strong>
   </div>
-  <div class="section-title">By Category</div>
+  <div class="sec">By Category</div>
   <div id="gst-cats"></div>
 </div>
 
-</div><!-- /wrap -->
+</div>
 <div id="toast"></div>
 
 <script>
-var entries=[];try{entries=JSON.parse(localStorage.getItem('px-entries')||'[]');}catch(e){entries=[];}
-var tLog=[];try{tLog=JSON.parse(localStorage.getItem('px-travel')||'[]');}catch(e){tLog=[];}
-var cLog=[];try{cLog=JSON.parse(localStorage.getItem('px-calltek')||'[]');}catch(e){cLog=[];}
-var SCRIPT_URL='https://script.google.com/macros/s/AKfycbz9coZfQ0aeLlkyQrYgIZtJ7izvI1f1MgGg7JTfuSX6BAGgSI5Yu_-uyStw7QvO-Ogm/exec';
+// ── STATE ──
+var E = [], TL = [], CL = [];
+var SCRIPT = 'https://script.google.com/macros/s/AKfycbz9coZfQ0aeLlkyQrYgIZtJ7izvI1f1MgGg7JTfuSX6BAGgSI5Yu_-uyStw7QvO-Ogm/exec';
 
-function save(){try{localStorage.setItem('px-entries',JSON.stringify(entries));localStorage.setItem('px-travel',JSON.stringify(tLog));localStorage.setItem('px-calltek',JSON.stringify(cLog));}catch(e){console.log('Storage error',e);}}
-function fm(n){return '$'+Number(n||0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
-function fk(n){return Number(n||0).toFixed(1)+' km';}
-function fd(d){if(!d)return'';return new Date(d+'T00:00:00').toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'});}
-function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style.opacity='1';setTimeout(function(){t.style.opacity='0';},2500);}
-function gstC(amt,inc){var g=inc?amt/11:amt*0.1;var ex=inc?amt-g:amt;var total=inc?amt:amt+g;return{gst:parseFloat(g.toFixed(2)),exc:parseFloat(ex.toFixed(2)),inc:parseFloat(total.toFixed(2))};}
-
-function init(){
-  var today=new Date().toISOString().split('T')[0];
-  var now=new Date().toTimeString().slice(0,5);
-  ['i-date','e-date','t-date','c-date'].forEach(function(id){var el=document.getElementById(id);if(el)el.value=today;});
-  ['t-stime','c-stime'].forEach(function(id){var el=document.getElementById(id);if(el)el.value=now;});
-  render();
+function load() {
+  try { E = JSON.parse(localStorage.getItem('px-e') || '[]'); } catch(e) { E = []; }
+  try { TL = JSON.parse(localStorage.getItem('px-t') || '[]'); } catch(e) { TL = []; }
+  try { CL = JSON.parse(localStorage.getItem('px-c') || '[]'); } catch(e) { CL = []; }
 }
 
-function showPage(id,btn){
-  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
-  document.querySelectorAll('.nav button').forEach(function(b){b.classList.remove('active');});
-  document.getElementById('pg-'+id).classList.add('active');
-  if(btn)btn.classList.add('active');
+function save() {
+  try { localStorage.setItem('px-e', JSON.stringify(E)); } catch(e) {}
+  try { localStorage.setItem('px-t', JSON.stringify(TL)); } catch(e) {}
+  try { localStorage.setItem('px-c', JSON.stringify(CL)); } catch(e) {}
 }
 
-function calcGST(pfx){
-  var amt=parseFloat(document.getElementById(pfx+'-amt').value)||0;
-  var inc=document.getElementById(pfx+'-gst').value==='inc';
-  var el=document.getElementById(pfx+'-calc');
-  if(!amt){el.classList.add('hidden');return;}
-  var r=gstC(amt,inc);
-  el.innerHTML='GST: <strong>'+fm(r.gst)+'</strong> &nbsp;&#183;&nbsp; Exc GST: <strong>'+fm(r.exc)+'</strong>';
-  el.classList.remove('hidden');
+// ── UTILS ──
+function fm(n) { return '$' + Number(n||0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function fk(n) { return Number(n||0).toFixed(1) + ' km'; }
+function fd(d) {
+  if (!d) return '';
+  try { return new Date(d + 'T00:00:00').toLocaleDateString('en-AU', {day:'2-digit',month:'short',year:'numeric'}); }
+  catch(e) { return d; }
+}
+function today() { return new Date().toISOString().split('T')[0]; }
+function nowt() { return new Date().toTimeString().slice(0,5); }
+
+function toast(m) {
+  var t = document.getElementById('toast');
+  t.textContent = m;
+  t.style.opacity = '1';
+  setTimeout(function() { t.style.opacity = '0'; }, 2500);
 }
 
-function addIncome(){
-  var client=document.getElementById('i-client').value.trim();
-  var amt=parseFloat(document.getElementById('i-amt').value);
-  if(!client||!amt){toast('Client + amount required');return;}
-  var inc=document.getElementById('i-gst').value==='inc';
-  var r=gstC(amt,inc);
-  entries.unshift({id:Date.now(),type:'income',date:document.getElementById('i-date').value,description:client,category:document.getElementById('i-svc').value,amountInc:r.inc,amountExc:r.exc,gst:r.gst,notes:document.getElementById('i-notes').value,paid:document.getElementById('i-paid').checked});
-  save();render();
-  document.getElementById('i-client').value='';document.getElementById('i-amt').value='';document.getElementById('i-notes').value='';document.getElementById('i-calc').classList.add('hidden');
+function gstCalc(amt, inc) {
+  var g = inc ? amt/11 : amt*0.1;
+  var ex = inc ? amt - g : amt;
+  var total = inc ? amt : amt + g;
+  return { gst: parseFloat(g.toFixed(2)), exc: parseFloat(ex.toFixed(2)), inc: parseFloat(total.toFixed(2)) };
+}
+
+// ── NAV ──
+function showPage(id) {
+  document.querySelectorAll('.pg').forEach(function(p) { p.classList.remove('on'); });
+  document.querySelectorAll('.nav button').forEach(function(b) { b.classList.remove('on'); });
+  var pg = document.getElementById('pg-' + id);
+  if (pg) pg.classList.add('on');
+  document.querySelectorAll('.nav button').forEach(function(b) {
+    if (b.getAttribute('data-page') === id) b.classList.add('on');
+  });
+}
+
+// ── INCOME ──
+function calcIncGST() {
+  var amt = parseFloat(document.getElementById('i-amt').value) || 0;
+  var inc = document.getElementById('i-gst').value === 'inc';
+  var el = document.getElementById('i-calc');
+  if (!amt) { el.style.display = 'none'; return; }
+  var r = gstCalc(amt, inc);
+  el.innerHTML = 'GST: <strong>' + fm(r.gst) + '</strong> &nbsp;|&nbsp; Exc GST: <strong>' + fm(r.exc) + '</strong>';
+  el.style.display = 'block';
+}
+
+function addIncome() {
+  var client = document.getElementById('i-client').value.trim();
+  var amt = parseFloat(document.getElementById('i-amt').value);
+  if (!client || !amt) { toast('Client + amount required'); return; }
+  var inc = document.getElementById('i-gst').value === 'inc';
+  var r = gstCalc(amt, inc);
+  E.unshift({
+    id: Date.now(), type: 'income',
+    date: document.getElementById('i-date').value,
+    description: client,
+    category: document.getElementById('i-svc').value,
+    amountInc: r.inc, amountExc: r.exc, gst: r.gst,
+    notes: document.getElementById('i-notes').value,
+    paid: document.getElementById('i-paid').checked
+  });
+  save(); render();
+  document.getElementById('i-client').value = '';
+  document.getElementById('i-amt').value = '';
+  document.getElementById('i-notes').value = '';
+  document.getElementById('i-calc').style.display = 'none';
   toast('Income added');
 }
 
-function addExpense(){
-  var sup=document.getElementById('e-sup').value.trim();
-  var amt=parseFloat(document.getElementById('e-amt').value);
-  if(!sup||!amt){toast('Supplier + amount required');return;}
-  var inc=document.getElementById('e-gst').value==='inc';
-  var r=gstC(amt,inc);
-  entries.unshift({id:Date.now(),type:'expense',date:document.getElementById('e-date').value,description:sup,category:document.getElementById('e-cat').value,amountInc:r.inc,amountExc:r.exc,gst:r.gst,notes:document.getElementById('e-notes').value});
-  save();render();
-  document.getElementById('e-sup').value='';document.getElementById('e-amt').value='';document.getElementById('e-notes').value='';document.getElementById('e-calc').classList.add('hidden');
-  document.getElementById('rcpt-prev').innerHTML='<div class="photo-icon">&#128247;</div><div class="photo-lbl">Tap to upload receipt</div>';
-  document.getElementById('scan-status').innerHTML='';
+// ── EXPENSES ──
+function calcExpGST() {
+  var amt = parseFloat(document.getElementById('e-amt').value) || 0;
+  var inc = document.getElementById('e-gst').value === 'inc';
+  var el = document.getElementById('e-calc');
+  if (!amt) { el.style.display = 'none'; return; }
+  var r = gstCalc(amt, inc);
+  el.innerHTML = 'GST credit: <strong>' + fm(r.gst) + '</strong> &nbsp;|&nbsp; Exc GST: <strong>' + fm(r.exc) + '</strong>';
+  el.style.display = 'block';
+}
+
+function addExpense() {
+  var sup = document.getElementById('e-sup').value.trim();
+  var amt = parseFloat(document.getElementById('e-amt').value);
+  if (!sup || !amt) { toast('Supplier + amount required'); return; }
+  var inc = document.getElementById('e-gst').value === 'inc';
+  var r = gstCalc(amt, inc);
+  E.unshift({
+    id: Date.now(), type: 'expense',
+    date: document.getElementById('e-date').value,
+    description: sup,
+    category: document.getElementById('e-cat').value,
+    amountInc: r.inc, amountExc: r.exc, gst: r.gst,
+    notes: document.getElementById('e-notes').value
+  });
+  save(); render();
+  document.getElementById('e-sup').value = '';
+  document.getElementById('e-amt').value = '';
+  document.getElementById('e-notes').value = '';
+  document.getElementById('e-calc').style.display = 'none';
+  resetReceipt();
   toast('Expense added');
 }
 
-async function scanReceipt(input){
-  var file=input.files[0];if(!file)return;
-  var reader=new FileReader();
-  reader.onload=async function(ev){
-    var b64=ev.target.result.split(',')[1];
-    document.getElementById('rcpt-prev').innerHTML='<img src="'+ev.target.result+'" style="width:100%;max-height:130px;object-fit:cover"/>';
-    document.getElementById('scan-status').innerHTML='<div class="scanning">Reading receipt...</div>';
-    try{
-      var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:file.type,data:b64}},{type:'text',text:'Extract receipt data for an Australian trade business. Respond ONLY with valid JSON, no markdown: {"supplier":"","date":"YYYY-MM-DD","amount":0,"gstIncluded":true,"category":"","notes":""} Category must be one of: Materials,Equipment,Fuel,Subcontractors,Tools,Marketing,Insurance,Vehicle,Phone/Internet,Office,Software,Training,Other'}]}]}))});
-      var data=await res.json();
-      var text=data.content&&data.content.find(function(b){return b.type==='text';});
-      var p=JSON.parse((text?text.text:'{}').replace(/```json|```/g,'').trim());
-      if(p.supplier)document.getElementById('e-sup').value=p.supplier;
-      if(p.date)document.getElementById('e-date').value=p.date;
-      if(p.amount)document.getElementById('e-amt').value=p.amount;
-      if(p.category)document.getElementById('e-cat').value=p.category;
-      if(p.notes)document.getElementById('e-notes').value=p.notes;
-      if(p.gstIncluded!==undefined)document.getElementById('e-gst').value=p.gstIncluded?'inc':'exc';
-      calcGST('e');
-      document.getElementById('scan-status').innerHTML='<div class="info-box" style="color:var(--teal)">Receipt scanned - review below</div>';
-    }catch(e){document.getElementById('scan-status').innerHTML='<div class="info-box amber">Could not read - fill in manually</div>';}
+function resetReceipt() {
+  document.getElementById('rcpt-prev').innerHTML = '<div style="font-size:30px">📷</div><div style="font-size:12px;color:#555;margin-top:4px">Tap to upload receipt — AI reads it</div>';
+  document.getElementById('scan-status').innerHTML = '';
+}
+
+// ── RECEIPT SCAN ──
+async function scanReceipt(input) {
+  var file = input.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = async function(ev) {
+    var b64 = ev.target.result.split(',')[1];
+    document.getElementById('rcpt-prev').innerHTML = '<img src="' + ev.target.result + '"/>';
+    document.getElementById('scan-status').innerHTML = '<div class="info" style="color:#0ABAB5">Reading receipt...</div>';
+    try {
+      var res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 500,
+          messages: [{
+            role: 'user',
+            content: [
+              { type: 'image', source: { type: 'base64', media_type: file.type, data: b64 } },
+              { type: 'text', text: 'Extract receipt data for an Australian trade business. Respond ONLY with valid JSON, no markdown, no extra text: {"supplier":"","date":"YYYY-MM-DD","amount":0,"gstIncluded":true,"category":"","notes":""} Category must be one of: Materials,Equipment,Fuel,Subcontractors,Tools,Marketing,Insurance,Vehicle,Phone/Internet,Office,Software,Training,Other' }
+            ]
+          }]
+        })
+      });
+      var data = await res.json();
+      var tb = data.content && data.content.find(function(b) { return b.type === 'text'; });
+      var txt = tb ? tb.text : '{}';
+      var p = JSON.parse(txt.replace(/```json|```/g, '').trim());
+      if (p.supplier) document.getElementById('e-sup').value = p.supplier;
+      if (p.date) document.getElementById('e-date').value = p.date;
+      if (p.amount) document.getElementById('e-amt').value = p.amount;
+      if (p.category) document.getElementById('e-cat').value = p.category;
+      if (p.notes) document.getElementById('e-notes').value = p.notes;
+      if (p.gstIncluded !== undefined) document.getElementById('e-gst').value = p.gstIncluded ? 'inc' : 'exc';
+      calcExpGST();
+      document.getElementById('scan-status').innerHTML = '<div class="info" style="color:#0ABAB5">Receipt scanned — review below</div>';
+    } catch(e) {
+      document.getElementById('scan-status').innerHTML = '<div class="warn">Could not read — fill in manually</div>';
+    }
   };
   reader.readAsDataURL(file);
 }
 
-async function scanOdo(input,prevId,inputId){
-  var file=input.files[0];if(!file)return;
-  var reader=new FileReader();
-  reader.onload=async function(ev){
-    var b64=ev.target.result.split(',')[1];
-    document.getElementById(prevId).innerHTML='<img src="'+ev.target.result+'" style="width:100%;max-height:120px;object-fit:cover"/><div class="scanning">Reading odometer...</div>';
-    try{
-      var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:100,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:file.type,data:b64}},{type:'text',text:'Vehicle odometer. Return ONLY the integer km reading. No units, no text, just the number. If unreadable: 0'}]}]})});
-      var data=await res.json();
-      var text=data.content&&data.content.find(function(b){return b.type==='text';});
-      var val=parseInt((text?text.text:'0').replace(/[^0-9]/g,''));
-      if(val>0){
-        document.getElementById(inputId).value=val;
-        document.getElementById(prevId).innerHTML='<img src="'+ev.target.result+'" style="width:100%;max-height:100px;object-fit:cover"/><div style="font-family:Bebas Neue,sans-serif;font-size:22px;color:var(--teal);margin-top:6px">'+val.toLocaleString()+' km</div>';
-        calcTravel();calcCalltek();
-      }else{
-        document.getElementById(prevId).innerHTML='<img src="'+ev.target.result+'" style="width:100%;max-height:100px;object-fit:cover"/><div style="color:var(--amber);font-size:11px;margin-top:4px">Type reading below</div>';
+// ── ODOMETER SCAN ──
+async function scanOdo(file, prevId, inputId, color) {
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = async function(ev) {
+    var b64 = ev.target.result.split(',')[1];
+    document.getElementById(prevId).innerHTML = '<img src="' + ev.target.result + '"/><div style="color:#555;font-size:11px;margin-top:4px">Reading...</div>';
+    try {
+      var res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 50,
+          messages: [{ role: 'user', content: [
+            { type: 'image', source: { type: 'base64', media_type: file.type, data: b64 } },
+            { type: 'text', text: 'Vehicle odometer reading. Return ONLY the integer km number. Nothing else.' }
+          ]}]
+        })
+      });
+      var data = await res.json();
+      var tb = data.content && data.content.find(function(b) { return b.type === 'text'; });
+      var val = parseInt((tb ? tb.text : '').replace(/[^0-9]/g, ''));
+      if (val > 0) {
+        document.getElementById(inputId).value = val;
+        document.getElementById(prevId).innerHTML = '<img src="' + ev.target.result + '"/><div class="scan-val" style="color:' + color + '">' + val.toLocaleString() + ' km</div>';
+        calcTravel(); calcCalltek();
+      } else {
+        document.getElementById(prevId).innerHTML = '<img src="' + ev.target.result + '"/><div style="color:#E67E22;font-size:11px;margin-top:4px">Type reading below</div>';
       }
-    }catch(e){document.getElementById(prevId).innerHTML='<img src="'+ev.target.result+'" style="width:100%;max-height:100px;object-fit:cover"/><div style="color:var(--amber);font-size:11px;margin-top:4px">Scan failed - type below</div>';}
+    } catch(e) {
+      document.getElementById(prevId).innerHTML = '<img src="' + ev.target.result + '"/><div style="color:#E67E22;font-size:11px;margin-top:4px">Scan failed — type below</div>';
+    }
   };
   reader.readAsDataURL(file);
 }
 
-function calcTravel(){
-  var s=parseInt(document.getElementById('t-sodo').value)||0;
-  var e=parseInt(document.getElementById('t-eodo').value)||0;
-  if(!s||!e||e<=s){document.getElementById('travel-result').classList.add('hidden');return;}
-  var km=e-s,chg=Math.max(0,km-25)*1.75,ato=km*0.88;
-  document.getElementById('tr-km').textContent=fk(km);
-  document.getElementById('tr-chg').textContent=fm(chg);
-  document.getElementById('tr-ato').textContent=fm(ato);
-  document.getElementById('tr-zone').textContent=chg===0?'Within free 25km zone - no client charge':fk(Math.max(0,km-25))+' chargeable';
-  document.getElementById('travel-result').classList.remove('hidden');
+// ── TRAVEL ──
+function calcTravel() {
+  var s = parseInt(document.getElementById('t-sodo').value) || 0;
+  var e = parseInt(document.getElementById('t-eodo').value) || 0;
+  if (!s || !e || e <= s) { document.getElementById('travel-result').style.display = 'none'; return; }
+  var km = e - s;
+  var chg = Math.max(0, km - 25) * 1.75;
+  var ato = km * 0.88;
+  document.getElementById('tr-km').textContent = fk(km);
+  document.getElementById('tr-chg').textContent = fm(chg);
+  document.getElementById('tr-ato').textContent = fm(ato);
+  document.getElementById('tr-zone').textContent = chg === 0 ? 'Within free 25km zone' : fk(Math.max(0, km-25)) + ' chargeable';
+  document.getElementById('travel-result').style.display = 'block';
 }
 
-function saveTravel(){
-  var client=document.getElementById('t-client').value.trim();
-  var dest=document.getElementById('t-dest').value.trim();
-  if(!client||!dest){toast('Fill in client and destination');return;}
-  var s=parseInt(document.getElementById('t-sodo').value)||0;
-  var e=parseInt(document.getElementById('t-eodo').value)||0;
-  var km=e-s,chargeable=Math.max(0,km-25);
-  tLog.unshift({id:Date.now(),date:document.getElementById('t-date').value,startTime:document.getElementById('t-stime').value,endTime:document.getElementById('t-etime').value,client:client,destination:dest,purpose:document.getElementById('t-purpose').value,notes:document.getElementById('t-notes').value,startOdo:s,endOdo:e,totalKm:km,chargeableKm:chargeable,clientCharge:chargeable*1.75,atoDeduction:km*0.88});
-  save();renderTravel();renderDashboard();
-  ['t-client','t-dest','t-notes','t-sodo','t-eodo','t-etime'].forEach(function(id){document.getElementById(id).value='';});
-  document.getElementById('ts-prev').innerHTML='<div class="photo-icon">&#128247;</div><div class="photo-lbl">Photo start odometer</div>';
-  document.getElementById('te-prev').innerHTML='<div class="photo-icon">&#128247;</div><div class="photo-lbl">Photo end odometer</div>';
-  document.getElementById('travel-result').classList.add('hidden');
+function saveTravel() {
+  var client = document.getElementById('t-client').value.trim();
+  var dest = document.getElementById('t-dest').value.trim();
+  if (!client || !dest) { toast('Fill in client and destination'); return; }
+  var s = parseInt(document.getElementById('t-sodo').value) || 0;
+  var e = parseInt(document.getElementById('t-eodo').value) || 0;
+  var km = e - s;
+  var chargeable = Math.max(0, km - 25);
+  TL.unshift({
+    id: Date.now(), date: document.getElementById('t-date').value,
+    startTime: document.getElementById('t-stime').value,
+    endTime: document.getElementById('t-etime').value,
+    client: client, destination: dest,
+    purpose: document.getElementById('t-purpose').value,
+    notes: document.getElementById('t-notes').value,
+    startOdo: s, endOdo: e, totalKm: km,
+    chargeableKm: chargeable, clientCharge: chargeable * 1.75, atoDeduction: km * 0.88
+  });
+  save(); renderTravel(); renderDash();
+  ['t-client','t-dest','t-notes','t-sodo','t-eodo','t-etime'].forEach(function(id) { document.getElementById(id).value = ''; });
+  document.getElementById('ts-prev').innerHTML = '<div style="font-size:28px">📷</div><div style="font-size:12px;color:#555">Photo start odometer</div>';
+  document.getElementById('te-prev').innerHTML = '<div style="font-size:28px">📷</div><div style="font-size:12px;color:#555">Photo end odometer</div>';
+  document.getElementById('travel-result').style.display = 'none';
   toast('Trip saved');
 }
 
-function calcCalltek(){
-  var s=parseInt(document.getElementById('c-sodo').value)||0;
-  var e=parseInt(document.getElementById('c-eodo').value)||0;
-  if(!s||!e||e<=s){document.getElementById('calltek-result').classList.add('hidden');return;}
-  var km=e-s,ato=km*0.88;
-  var ytd=cLog.reduce(function(sum,t){return sum+t.totalKm;},0)+km;
-  document.getElementById('cr-km').textContent=fk(km);
-  document.getElementById('cr-ato').textContent=fm(ato);
-  document.getElementById('cr-ytd').textContent=fk(ytd);
-  var warn=document.getElementById('cr-warn');
-  if(ytd>5000)warn.innerHTML='<span style="color:var(--red)">Over 5,000km - need logbook method</span>';
-  else if(ytd>4000)warn.innerHTML='<span style="color:var(--amber)">Approaching limit ('+fk(5000-ytd)+' remaining)</span>';
-  else warn.innerHTML='';
-  document.getElementById('calltek-result').classList.remove('hidden');
+// ── CALLTEK ──
+function calcCalltek() {
+  var s = parseInt(document.getElementById('c-sodo').value) || 0;
+  var e = parseInt(document.getElementById('c-eodo').value) || 0;
+  if (!s || !e || e <= s) { document.getElementById('calltek-result').style.display = 'none'; return; }
+  var km = e - s;
+  var ato = km * 0.88;
+  var ytd = CL.reduce(function(sum, t) { return sum + t.totalKm; }, 0) + km;
+  document.getElementById('cr-km').textContent = fk(km);
+  document.getElementById('cr-ato').textContent = fm(ato);
+  document.getElementById('cr-ytd').textContent = fk(ytd);
+  var w = document.getElementById('cr-warn');
+  if (ytd > 5000) w.innerHTML = '<span style="color:#C0392B">Over 5,000km — need logbook method</span>';
+  else if (ytd > 4000) w.innerHTML = '<span style="color:#E67E22">Approaching limit (' + fk(5000-ytd) + ' remaining)</span>';
+  else w.innerHTML = '';
+  document.getElementById('calltek-result').style.display = 'block';
 }
 
-function saveCalltek(){
-  var job=document.getElementById('c-job').value.trim();
-  if(!job){toast('Fill in job/work order');return;}
-  var s=parseInt(document.getElementById('c-sodo').value)||0;
-  var e=parseInt(document.getElementById('c-eodo').value)||0;
-  var km=e-s;
-  cLog.unshift({id:Date.now(),date:document.getElementById('c-date').value,startTime:document.getElementById('c-stime').value,endTime:document.getElementById('c-etime').value,job:job,sites:document.getElementById('c-sites').value,type:document.getElementById('c-type').value,notes:document.getElementById('c-notes').value,startOdo:s,endOdo:e,totalKm:km,atoDeduction:km*0.88});
-  save();renderCalltek();renderDashboard();
-  ['c-job','c-sites','c-notes','c-sodo','c-eodo','c-etime'].forEach(function(id){document.getElementById(id).value='';});
-  document.getElementById('cs-prev').innerHTML='<div class="photo-icon">&#128247;</div><div class="photo-lbl">Photo start odometer</div>';
-  document.getElementById('ce-prev').innerHTML='<div class="photo-icon">&#128247;</div><div class="photo-lbl">Photo end odometer</div>';
-  document.getElementById('calltek-result').classList.add('hidden');
+function saveCalltek() {
+  var job = document.getElementById('c-job').value.trim();
+  if (!job) { toast('Fill in job/work order'); return; }
+  var s = parseInt(document.getElementById('c-sodo').value) || 0;
+  var e = parseInt(document.getElementById('c-eodo').value) || 0;
+  var km = e - s;
+  CL.unshift({
+    id: Date.now(), date: document.getElementById('c-date').value,
+    startTime: document.getElementById('c-stime').value,
+    endTime: document.getElementById('c-etime').value,
+    job: job, sites: document.getElementById('c-sites').value,
+    type: document.getElementById('c-type').value,
+    notes: document.getElementById('c-notes').value,
+    startOdo: s, endOdo: e, totalKm: km, atoDeduction: km * 0.88
+  });
+  save(); renderCalltek(); renderDash();
+  ['c-job','c-sites','c-notes','c-sodo','c-eodo','c-etime'].forEach(function(id) { document.getElementById(id).value = ''; });
+  document.getElementById('cs-prev').innerHTML = '<div style="font-size:28px">📷</div><div style="font-size:12px;color:#555">Photo start odometer</div>';
+  document.getElementById('ce-prev').innerHTML = '<div style="font-size:28px">📷</div><div style="font-size:12px;color:#555">Photo end odometer</div>';
+  document.getElementById('calltek-result').style.display = 'none';
   toast('Calltek trip saved');
 }
 
-function exportCSV(which){
-  var log=which==='poxit'?tLog:cLog;
-  if(!log.length){toast('No trips to export');return;}
-  var csv,name;
-  if(which==='poxit'){
-    csv=['Date,Client,Destination,Purpose,Start Odo,End Odo,Total km,Chargeable km,Client Charge,ATO Deduction,Start Time,End Time,Notes'].concat(log.map(function(e){return e.date+',"'+e.client+'","'+e.destination+'","'+e.purpose+'",'+e.startOdo+','+e.endOdo+','+e.totalKm+','+e.chargeableKm+','+e.clientCharge+','+e.atoDeduction+','+e.startTime+','+e.endTime+',"'+(e.notes||'')+'"';})).join('\n');
-    name='Poxit_Travel_Log.csv';
-  }else{
-    csv=['Date,Job,Sites,Type,Start Odo,End Odo,Total km,ATO Deduction,Start Time,End Time,Notes'].concat(log.map(function(e){return e.date+',"'+e.job+'","'+(e.sites||'')+'","'+e.type+'",'+e.startOdo+','+e.endOdo+','+e.totalKm+','+e.atoDeduction+','+e.startTime+','+e.endTime+',"'+(e.notes||'')+'"';})).join('\n');
-    name='Calltek_Travel_Log.csv';
+// ── EXPORT ──
+function exportCSV(which) {
+  var log = which === 'poxit' ? TL : CL;
+  if (!log.length) { toast('No trips to export'); return; }
+  var csv, name;
+  if (which === 'poxit') {
+    csv = ['Date,Client,Destination,Purpose,Start Odo,End Odo,Total km,Chargeable km,Client Charge,ATO Deduction'].concat(
+      log.map(function(t) { return t.date + ',"' + t.client + '","' + t.destination + '","' + t.purpose + '",' + t.startOdo + ',' + t.endOdo + ',' + t.totalKm + ',' + t.chargeableKm + ',' + t.clientCharge + ',' + t.atoDeduction; })
+    ).join('\n');
+    name = 'Poxit_Travel.csv';
+  } else {
+    csv = ['Date,Job,Sites,Type,Start Odo,End Odo,Total km,ATO Deduction'].concat(
+      log.map(function(t) { return t.date + ',"' + t.job + '","' + (t.sites||'') + '","' + t.type + '",' + t.startOdo + ',' + t.endOdo + ',' + t.totalKm + ',' + t.atoDeduction; })
+    ).join('\n');
+    name = 'Calltek_Travel.csv';
   }
-  var blob=new Blob([csv],{type:'text/csv'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();
+  var blob = new Blob([csv], {type: 'text/csv'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
 }
 
-async function syncToSheets(){
-  if(!entries.length){toast('No entries to sync');return;}
+// ── SYNC ──
+async function syncSheets() {
+  if (!E.length) { toast('No entries to sync'); return; }
   toast('Syncing...');
-  try{
-    var payload={action:'bookkeeping_sync',timestamp:new Date().toISOString(),entries:entries.map(function(e){return{id:e.id,type:e.type,date:e.date,description:e.description,category:e.category,amount_inc_gst:e.amountInc,amount_exc_gst:e.amountExc,gst:e.gst,notes:e.notes,paid:e.paid||''};})};
-    await fetch(SCRIPT_URL+'?data='+encodeURIComponent(JSON.stringify(payload)));
+  try {
+    var payload = {
+      action: 'bookkeeping_sync',
+      timestamp: new Date().toISOString(),
+      entries: E.map(function(e) {
+        return { id: e.id, type: e.type, date: e.date, description: e.description,
+          category: e.category, amount_inc_gst: e.amountInc, amount_exc_gst: e.amountExc,
+          gst: e.gst, notes: e.notes, paid: e.paid || '' };
+      })
+    };
+    await fetch(SCRIPT + '?data=' + encodeURIComponent(JSON.stringify(payload)));
     toast('Synced to Google Sheets');
-  }catch(e){toast('Sync failed');}
+  } catch(e) { toast('Sync failed'); }
 }
 
-function delEntry(id){entries=entries.filter(function(e){return e.id!==id;});save();render();}
-function delTravel(id){tLog=tLog.filter(function(t){return t.id!==id;});save();renderTravel();renderDashboard();}
-function delCalltek(id){cLog=cLog.filter(function(t){return t.id!==id;});save();renderCalltek();renderDashboard();}
+// ── DELETE ──
+function delE(id) { E = E.filter(function(e) { return e.id !== id; }); save(); render(); }
+function delT(id) { TL = TL.filter(function(t) { return t.id !== id; }); save(); renderTravel(); renderDash(); }
+function delC(id) { CL = CL.filter(function(t) { return t.id !== id; }); save(); renderCalltek(); renderDash(); }
 
-function render(){renderDashboard();renderIncome();renderExpenses();renderTravel();renderCalltek();renderLedger();renderGST();}
+// ── RENDER ──
+function render() { renderDash(); renderIncome(); renderExpenses(); renderTravel(); renderCalltek(); renderLedger(); renderGST(); }
 
-function renderDashboard(){
-  var inc=entries.filter(function(e){return e.type==='income';});
-  var exp=entries.filter(function(e){return e.type==='expense';});
-  var tInc=inc.reduce(function(s,e){return s+e.amountExc;},0);
-  var tExp=exp.reduce(function(s,e){return s+e.amountExc;},0);
-  var profit=tInc-tExp;
-  var gstC=inc.reduce(function(s,e){return s+e.gst;},0);
-  var gstP=exp.reduce(function(s,e){return s+e.gst;},0);
-  var poxKm=tLog.reduce(function(s,t){return s+t.totalKm;},0);
-  var calKm=cLog.reduce(function(s,t){return s+t.totalKm;},0);
-  var ato=tLog.reduce(function(s,t){return s+t.atoDeduction;},0)+cLog.reduce(function(s,t){return s+t.atoDeduction;},0);
-  document.getElementById('d-inc').textContent=fm(tInc);
-  document.getElementById('d-exp').textContent=fm(tExp);
-  var pel=document.getElementById('d-profit');pel.textContent=fm(profit);pel.style.color=profit>=0?'var(--teal)':'var(--red)';
-  document.getElementById('d-gst').textContent=fm(Math.abs(gstC-gstP));
-  document.getElementById('d-pkm').textContent=fk(poxKm);
-  document.getElementById('d-ckm').textContent=fk(calKm);
-  document.getElementById('d-ato').textContent=fm(ato);
-  var recent=entries.slice(0,6);
-  var el=document.getElementById('d-recent');
-  if(!recent.length){el.innerHTML='<div class="empty">No entries yet.</div>';return;}
-  el.innerHTML=recent.map(function(e){return '<div class="entry-row"><div><div style="font-size:13px;font-weight:700">'+e.description+'</div><div style="font-size:11px;color:var(--muted);margin-top:2px">'+fd(e.date)+' &middot; '+(e.category||'')+'</div></div><div style="text-align:right"><div style="font-size:14px;font-weight:700;color:'+(e.type==='income'?'var(--teal)':'var(--red)')+';">'+(e.type==='income'?'+':'-')+fm(e.amountExc)+'</div><div style="font-size:10px;color:var(--muted)">exc GST</div></div></div>';}).join('');
-}
-
-function renderIncome(){
-  var inc=entries.filter(function(e){return e.type==='income';});
-  var el=document.getElementById('income-list');
-  if(!inc.length){el.innerHTML='<div class="empty">No income entries yet.</div>';return;}
-  el.innerHTML=inc.map(function(e){return '<div class="entry-row"><div style="flex:1"><div style="font-size:13px;font-weight:700">'+e.description+'</div><div style="font-size:11px;color:var(--muted);margin-top:2px">'+fd(e.date)+' &middot; '+e.category+(e.paid?'':' <span style="color:var(--red)">UNPAID</span>')+'</div></div><div style="display:flex;align-items:center;gap:8px"><div style="text-align:right"><div style="font-size:14px;font-weight:700;color:var(--teal)">+'+fm(e.amountExc)+'</div><div style="font-size:10px;color:var(--muted)">GST '+fm(e.gst)+'</div></div><button class="btn-danger" onclick="delEntry('+e.id+')">X</button></div></div>';}).join('');
-}
-
-function renderExpenses(){
-  var exp=entries.filter(function(e){return e.type==='expense';});
-  var el=document.getElementById('expense-list');
-  if(!exp.length){el.innerHTML='<div class="empty">No expenses yet.</div>';return;}
-  el.innerHTML=exp.map(function(e){return '<div class="entry-row"><div style="flex:1"><div style="font-size:13px;font-weight:700">'+e.description+'</div><div style="font-size:11px;color:var(--muted);margin-top:2px">'+fd(e.date)+' &middot; '+e.category+'</div>'+(e.notes?'<div style="font-size:11px;color:var(--muted)">'+e.notes+'</div>':'')+'</div><div style="display:flex;align-items:center;gap:8px"><div style="text-align:right"><div style="font-size:14px;font-weight:700;color:var(--red)">-'+fm(e.amountExc)+'</div><div style="font-size:10px;color:var(--muted)">GST '+fm(e.gst)+'</div></div><button class="btn-danger" onclick="delEntry('+e.id+')">X</button></div></div>';}).join('');
-}
-
-function renderTravel(){
-  var el=document.getElementById('travel-list');
-  if(!tLog.length){el.innerHTML='<div class="empty">No trips logged.</div>';return;}
-  el.innerHTML=tLog.map(function(t){return '<div class="entry-row"><div style="flex:1"><div style="font-size:13px;font-weight:700">'+t.client+'</div><div style="font-size:11px;color:var(--muted);margin-top:2px">'+fd(t.date)+(t.startTime?' &middot; '+t.startTime:'')+(t.endTime?' - '+t.endTime:'')+'</div><div style="font-size:11px;color:var(--muted)">'+t.destination+'</div><div style="display:flex;gap:10px;margin-top:5px"><span style="font-size:11px;color:var(--teal);font-weight:700">'+fk(t.totalKm)+'</span>'+(t.clientCharge>0?'<span style="font-size:11px;color:var(--amber)">Charge: '+fm(t.clientCharge)+'</span>':'')+'<span style="font-size:11px;color:var(--green)">ATO: '+fm(t.atoDeduction)+'</span></div></div><button class="btn-danger" onclick="delTravel('+t.id+')">X</button></div>';}).join('');
-}
-
-function renderCalltek(){
-  var el=document.getElementById('calltek-list');
-  if(!cLog.length){el.innerHTML='<div class="empty">No Calltek trips logged.</div>';return;}
-  var lbl={'site-to-site':'Site to Site','home-to-site':'Home to Site','site-to-home':'Site to Home','other':'Other'};
-  el.innerHTML=cLog.map(function(t){return '<div class="entry-row"><div style="flex:1"><div style="font-size:13px;font-weight:700">'+t.job+'</div><div style="font-size:11px;color:var(--muted);margin-top:2px">'+fd(t.date)+(t.startTime?' &middot; '+t.startTime:'')+(t.endTime?' - '+t.endTime:'')+'</div>'+(t.sites?'<div style="font-size:11px;color:var(--muted)">'+t.sites+'</div>':'')+'<div style="display:flex;gap:10px;margin-top:5px"><span style="font-size:11px;color:var(--amber);font-weight:700">'+fk(t.totalKm)+'</span><span style="font-size:10px;color:var(--muted)">'+(lbl[t.type]||t.type)+'</span><span style="font-size:11px;color:var(--green)">ATO: '+fm(t.atoDeduction)+'</span></div></div><button class="btn-danger" onclick="delCalltek('+t.id+')">X</button></div>';}).join('');
-}
-
-function renderLedger(){
-  var sorted=entries.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date);});
-  var el=document.getElementById('ledger-list');
-  if(!sorted.length){el.innerHTML='<div class="empty">No transactions yet.</div>';return;}
-  el.innerHTML=sorted.map(function(e){return '<div class="card" style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><span class="badge-'+(e.type==='income'?'i':'e')+'">'+(e.type==='income'?'INCOME':'EXPENSE')+'</span><div style="font-size:14px;font-weight:700;margin-top:6px">'+e.description+'</div><div style="font-size:11px;color:var(--muted);margin-top:2px">'+fd(e.date)+' &middot; '+(e.category||'')+'</div>'+(e.notes?'<div style="font-size:11px;color:var(--muted)">'+e.notes+'</div>':'')+'</div><div style="text-align:right"><div style="font-size:15px;font-weight:700;color:'+(e.type==='income'?'var(--teal)':'var(--red)')+';">'+(e.type==='income'?'+':'-')+fm(e.amountInc)+'</div><div style="font-size:10px;color:var(--muted)">inc. GST</div><div style="font-size:10px;color:var(--muted);margin-top:2px">GST: '+fm(e.gst)+'</div><button class="btn-danger" style="margin-top:6px" onclick="delEntry('+e.id+')">Delete</button></div></div></div>';}).join('');
-}
-
-function renderGST(){
-  var inc=entries.filter(function(e){return e.type==='income';});
-  var exp=entries.filter(function(e){return e.type==='expense';});
-  var tIncE=inc.reduce(function(s,e){return s+e.amountExc;},0);
-  var tExpE=exp.reduce(function(s,e){return s+e.amountExc;},0);
-  var gstC=inc.reduce(function(s,e){return s+e.gst;},0);
-  var gstP=exp.reduce(function(s,e){return s+e.gst;},0);
-  var net=gstC-gstP;
-  document.getElementById('g-sales').textContent=fm(tIncE);
-  document.getElementById('g-1a').textContent=fm(gstC);
-  document.getElementById('g-purch').textContent=fm(tExpE);
-  document.getElementById('g-1b').textContent=fm(gstP);
-  document.getElementById('g-net').textContent=fm(Math.abs(net));
-  document.getElementById('g-net').style.color=net>=0?'var(--amber)':'var(--teal)';
-  var cats=['Materials','Equipment','Fuel','Subcontractors','Tools','Marketing','Insurance','Vehicle','Phone/Internet','Office','Software','Training','Other'];
-  var catEl=document.getElementById('gst-cats');
-  var rows=cats.map(function(cat){
-    var ce=exp.filter(function(e){return e.category===cat;});
-    if(!ce.length)return'';
-    var tot=ce.reduce(function(s,e){return s+e.amountExc;},0);
-    var gst=ce.reduce(function(s,e){return s+e.gst;},0);
-    return'<div class="gst-row"><span style="font-size:13px">'+cat+'</span><span><span style="color:var(--red)">'+fm(tot)+'</span> <span style="color:var(--muted);font-size:11px">GST '+fm(gst)+'</span></span></div>';
+function renderDash() {
+  var inc = E.filter(function(e) { return e.type === 'income'; });
+  var exp = E.filter(function(e) { return e.type === 'expense'; });
+  var tInc = inc.reduce(function(s,e) { return s + e.amountExc; }, 0);
+  var tExp = exp.reduce(function(s,e) { return s + e.amountExc; }, 0);
+  var profit = tInc - tExp;
+  var gstC = inc.reduce(function(s,e) { return s + e.gst; }, 0);
+  var gstP = exp.reduce(function(s,e) { return s + e.gst; }, 0);
+  var poxKm = TL.reduce(function(s,t) { return s + t.totalKm; }, 0);
+  var calKm = CL.reduce(function(s,t) { return s + t.totalKm; }, 0);
+  var ato = TL.reduce(function(s,t) { return s + t.atoDeduction; }, 0) + CL.reduce(function(s,t) { return s + t.atoDeduction; }, 0);
+  document.getElementById('d-inc').textContent = fm(tInc);
+  document.getElementById('d-exp').textContent = fm(tExp);
+  var pel = document.getElementById('d-profit');
+  pel.textContent = fm(profit);
+  pel.style.color = profit >= 0 ? '#0ABAB5' : '#C0392B';
+  document.getElementById('d-gst').textContent = fm(Math.abs(gstC - gstP));
+  document.getElementById('d-pkm').textContent = fk(poxKm);
+  document.getElementById('d-ckm').textContent = fk(calKm);
+  document.getElementById('d-ato').textContent = fm(ato);
+  var recent = E.slice(0, 6);
+  var el = document.getElementById('d-recent');
+  if (!recent.length) { el.innerHTML = '<div class="empty">No entries yet</div>'; return; }
+  el.innerHTML = recent.map(function(e) {
+    return '<div class="erow"><div><div style="font-size:13px;font-weight:700">' + e.description + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(e.date) + ' · ' + (e.category||'') + '</div></div><div style="text-align:right"><div style="font-size:14px;font-weight:700;color:' + (e.type==='income'?'#0ABAB5':'#C0392B') + '">' + (e.type==='income'?'+':'-') + fm(e.amountExc) + '</div><div style="font-size:10px;color:#555">exc GST</div></div></div>';
   }).join('');
-  catEl.innerHTML=rows||'<div class="empty">No expense categories yet.</div>';
 }
 
-init();
+function renderIncome() {
+  var inc = E.filter(function(e) { return e.type === 'income'; });
+  var el = document.getElementById('income-list');
+  if (!inc.length) { el.innerHTML = '<div class="empty">No income yet</div>'; return; }
+  el.innerHTML = inc.map(function(e) {
+    return '<div class="erow"><div style="flex:1"><div style="font-size:13px;font-weight:700">' + e.description + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(e.date) + ' · ' + e.category + (e.paid ? '' : ' <span style="color:#C0392B">UNPAID</span>') + '</div></div><div style="display:flex;align-items:center;gap:8px"><div style="text-align:right"><div style="font-size:14px;font-weight:700;color:#0ABAB5">+' + fm(e.amountExc) + '</div><div style="font-size:10px;color:#555">GST ' + fm(e.gst) + '</div></div><button class="dbtn" onclick="delE(' + e.id + ')">X</button></div></div>';
+  }).join('');
+}
+
+function renderExpenses() {
+  var exp = E.filter(function(e) { return e.type === 'expense'; });
+  var el = document.getElementById('expense-list');
+  if (!exp.length) { el.innerHTML = '<div class="empty">No expenses yet</div>'; return; }
+  el.innerHTML = exp.map(function(e) {
+    return '<div class="erow"><div style="flex:1"><div style="font-size:13px;font-weight:700">' + e.description + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(e.date) + ' · ' + e.category + '</div>' + (e.notes ? '<div style="font-size:11px;color:#555">' + e.notes + '</div>' : '') + '</div><div style="display:flex;align-items:center;gap:8px"><div style="text-align:right"><div style="font-size:14px;font-weight:700;color:#C0392B">-' + fm(e.amountExc) + '</div><div style="font-size:10px;color:#555">GST ' + fm(e.gst) + '</div></div><button class="dbtn" onclick="delE(' + e.id + ')">X</button></div></div>';
+  }).join('');
+}
+
+function renderTravel() {
+  var el = document.getElementById('travel-list');
+  if (!TL.length) { el.innerHTML = '<div class="empty">No trips logged</div>'; return; }
+  el.innerHTML = TL.map(function(t) {
+    return '<div class="erow"><div style="flex:1"><div style="font-size:13px;font-weight:700">' + t.client + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(t.date) + (t.startTime ? ' · ' + t.startTime : '') + '</div><div style="font-size:11px;color:#555">' + t.destination + '</div><div style="display:flex;gap:10px;margin-top:4px"><span style="font-size:11px;color:#0ABAB5;font-weight:700">' + fk(t.totalKm) + '</span>' + (t.clientCharge > 0 ? '<span style="font-size:11px;color:#E67E22">Chg: ' + fm(t.clientCharge) + '</span>' : '') + '<span style="font-size:11px;color:#1A7A4A">ATO: ' + fm(t.atoDeduction) + '</span></div></div><button class="dbtn" onclick="delT(' + t.id + ')">X</button></div>';
+  }).join('');
+}
+
+function renderCalltek() {
+  var el = document.getElementById('calltek-list');
+  if (!CL.length) { el.innerHTML = '<div class="empty">No Calltek trips</div>'; return; }
+  el.innerHTML = CL.map(function(t) {
+    return '<div class="erow"><div style="flex:1"><div style="font-size:13px;font-weight:700">' + t.job + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(t.date) + (t.startTime ? ' · ' + t.startTime : '') + '</div>' + (t.sites ? '<div style="font-size:11px;color:#555">' + t.sites + '</div>' : '') + '<div style="display:flex;gap:10px;margin-top:4px"><span style="font-size:11px;color:#E67E22;font-weight:700">' + fk(t.totalKm) + '</span><span style="font-size:11px;color:#1A7A4A">ATO: ' + fm(t.atoDeduction) + '</span></div></div><button class="dbtn" onclick="delC(' + t.id + ')">X</button></div>';
+  }).join('');
+}
+
+function renderLedger() {
+  var sorted = E.slice().sort(function(a,b) { return new Date(b.date) - new Date(a.date); });
+  var el = document.getElementById('ledger-list');
+  if (!sorted.length) { el.innerHTML = '<div class="empty">No transactions yet</div>'; return; }
+  el.innerHTML = sorted.map(function(e) {
+    return '<div class="card" style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><span style="font-size:9px;padding:2px 7px;background:' + (e.type==='income'?'rgba(10,186,181,0.12)':'rgba(192,57,43,0.12)') + ';color:' + (e.type==='income'?'#0ABAB5':'#C0392B') + ';letter-spacing:1px;text-transform:uppercase">' + e.type.toUpperCase() + '</span><div style="font-size:14px;font-weight:700;margin-top:6px">' + e.description + '</div><div style="font-size:11px;color:#555;margin-top:2px">' + fd(e.date) + ' · ' + (e.category||'') + '</div></div><div style="text-align:right"><div style="font-size:15px;font-weight:700;color:' + (e.type==='income'?'#0ABAB5':'#C0392B') + '">' + (e.type==='income'?'+':'-') + fm(e.amountInc) + '</div><div style="font-size:10px;color:#555">inc GST</div><div style="font-size:10px;color:#555;margin-top:2px">GST: ' + fm(e.gst) + '</div><button class="dbtn" style="margin-top:6px" onclick="delE(' + e.id + ')">Del</button></div></div></div>';
+  }).join('');
+}
+
+function renderGST() {
+  var inc = E.filter(function(e) { return e.type === 'income'; });
+  var exp = E.filter(function(e) { return e.type === 'expense'; });
+  var tIncE = inc.reduce(function(s,e) { return s + e.amountExc; }, 0);
+  var tExpE = exp.reduce(function(s,e) { return s + e.amountExc; }, 0);
+  var gstC = inc.reduce(function(s,e) { return s + e.gst; }, 0);
+  var gstP = exp.reduce(function(s,e) { return s + e.gst; }, 0);
+  var net = gstC - gstP;
+  document.getElementById('g-sales').textContent = fm(tIncE);
+  document.getElementById('g-1a').textContent = fm(gstC);
+  document.getElementById('g-purch').textContent = fm(tExpE);
+  document.getElementById('g-1b').textContent = fm(gstP);
+  document.getElementById('g-net').textContent = fm(Math.abs(net));
+  document.getElementById('g-net').style.color = net >= 0 ? '#E67E22' : '#0ABAB5';
+  var cats = ['Materials','Equipment','Fuel','Subcontractors','Tools','Marketing','Insurance','Vehicle','Phone/Internet','Office','Software','Training','Other'];
+  var catEl = document.getElementById('gst-cats');
+  var rows = cats.map(function(cat) {
+    var ce = exp.filter(function(e) { return e.category === cat; });
+    if (!ce.length) return '';
+    var tot = ce.reduce(function(s,e) { return s + e.amountExc; }, 0);
+    var gst = ce.reduce(function(s,e) { return s + e.gst; }, 0);
+    return '<div class="grow"><span style="font-size:13px">' + cat + '</span><span><span style="color:#C0392B">' + fm(tot) + '</span> <span style="color:#555;font-size:11px">GST ' + fm(gst) + '</span></span></div>';
+  }).join('');
+  catEl.innerHTML = rows || '<div class="empty">No expense categories yet</div>';
+}
+
+// ── INIT ──
+function init() {
+  load();
+
+  // Set today's date and current time
+  var t = today(), n = nowt();
+  ['i-date','e-date','t-date','c-date'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.value = t;
+  });
+  ['t-stime','c-stime'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.value = n;
+  });
+
+  // Nav buttons
+  document.getElementById('nav').addEventListener('click', function(ev) {
+    var btn = ev.target.closest('button');
+    if (!btn) return;
+    var pg = btn.getAttribute('data-page');
+    if (pg) showPage(pg);
+  });
+
+  // Sync
+  document.getElementById('syncBtn').addEventListener('click', syncSheets);
+
+  // Dashboard quick nav
+  document.getElementById('goIncome').addEventListener('click', function() { showPage('income'); });
+  document.getElementById('goExp').addEventListener('click', function() { showPage('expenses'); });
+
+  // Income
+  document.getElementById('i-amt').addEventListener('input', calcIncGST);
+  document.getElementById('i-gst').addEventListener('change', calcIncGST);
+  document.getElementById('addIncomeBtn').addEventListener('click', addIncome);
+
+  // Expenses
+  document.getElementById('e-amt').addEventListener('input', calcExpGST);
+  document.getElementById('e-gst').addEventListener('change', calcExpGST);
+  document.getElementById('addExpBtn').addEventListener('click', addExpense);
+  document.getElementById('rcptBox').addEventListener('click', function() { document.getElementById('rcpt-file').click(); });
+  document.getElementById('rcpt-file').addEventListener('change', function() { scanReceipt(this); });
+
+  // Travel
+  document.getElementById('tsBox').addEventListener('click', function() { document.getElementById('ts-file').click(); });
+  document.getElementById('teBox').addEventListener('click', function() { document.getElementById('te-file').click(); });
+  document.getElementById('ts-file').addEventListener('change', function() { scanOdo(this.files[0], 'ts-prev', 't-sodo', '#0ABAB5'); });
+  document.getElementById('te-file').addEventListener('change', function() { scanOdo(this.files[0], 'te-prev', 't-eodo', '#0ABAB5'); });
+  document.getElementById('t-sodo').addEventListener('input', calcTravel);
+  document.getElementById('t-eodo').addEventListener('input', calcTravel);
+  document.getElementById('saveTravelBtn').addEventListener('click', saveTravel);
+  document.getElementById('exportPoxitBtn').addEventListener('click', function() { exportCSV('poxit'); });
+
+  // Calltek
+  document.getElementById('csBox').addEventListener('click', function() { document.getElementById('cs-file').click(); });
+  document.getElementById('ceBox').addEventListener('click', function() { document.getElementById('ce-file').click(); });
+  document.getElementById('cs-file').addEventListener('change', function() { scanOdo(this.files[0], 'cs-prev', 'c-sodo', '#E67E22'); });
+  document.getElementById('ce-file').addEventListener('change', function() { scanOdo(this.files[0], 'ce-prev', 'c-eodo', '#E67E22'); });
+  document.getElementById('c-sodo').addEventListener('input', calcCalltek);
+  document.getElementById('c-eodo').addEventListener('input', calcCalltek);
+  document.getElementById('saveCalltekBtn').addEventListener('click', saveCalltek);
+  document.getElementById('exportCalltekBtn').addEventListener('click', function() { exportCSV('calltek'); });
+
+  render();
+}
+
+window.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>

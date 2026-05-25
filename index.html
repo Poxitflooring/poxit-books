@@ -937,11 +937,16 @@ function renderSpending(filterCat) {
   // Render category chips sorted by total desc
   var sorted = Object.keys(cats).sort(function(a, b) { return cats[b].total - cats[a].total; });
   var chipsEl = document.getElementById('spend-cats');
+  // Use event delegation to avoid Safari inline onclick issues
+  chipsEl.onclick = function(ev) {
+    var btn = ev.target.closest('.spend-chip');
+    if (btn) renderSpending(btn.getAttribute('data-cat'));
+  };
   chipsEl.innerHTML = sorted.map(function(c) {
     var col = CAT_COLORS[c] || '#0ABAB5';
     var pct = grandTotal > 0 ? Math.round(cats[c].total / grandTotal * 100) : 0;
     var active = activeSpendCat === c;
-    return '<button onclick="renderSpending('' + c + '')" style="background:' + (active ? col : 'rgba(255,255,255,0.05)') + ';border:1px solid ' + col + ';color:' + (active ? '#000' : col) + ';padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer">' + c + ' ' + pct + '%</button>';
+    return '<button data-cat="' + c.replace(/"/g, '&quot;') + '" class="spend-chip" style="background:' + (active ? col : 'rgba(255,255,255,0.05)') + ';border:1px solid ' + col + ';color:' + (active ? '#000' : col) + ';padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer">' + c + ' ' + pct + '%</button>';
   }).join('');
 
   // Summary bar

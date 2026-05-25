@@ -326,12 +326,12 @@ input[type=text],input[type=number],input[type=date],input[type=time],select{wid
 <div id="toast"></div>
 
 <script>
-var entries=JSON.parse(localStorage.getItem('px-entries')||'[]');
-var tLog=JSON.parse(localStorage.getItem('px-travel')||'[]');
-var cLog=JSON.parse(localStorage.getItem('px-calltek')||'[]');
+var entries=[];try{entries=JSON.parse(localStorage.getItem('px-entries')||'[]');}catch(e){entries=[];}
+var tLog=[];try{tLog=JSON.parse(localStorage.getItem('px-travel')||'[]');}catch(e){tLog=[];}
+var cLog=[];try{cLog=JSON.parse(localStorage.getItem('px-calltek')||'[]');}catch(e){cLog=[];}
 var SCRIPT_URL='https://script.google.com/macros/s/AKfycbz9coZfQ0aeLlkyQrYgIZtJ7izvI1f1MgGg7JTfuSX6BAGgSI5Yu_-uyStw7QvO-Ogm/exec';
 
-function save(){localStorage.setItem('px-entries',JSON.stringify(entries));localStorage.setItem('px-travel',JSON.stringify(tLog));localStorage.setItem('px-calltek',JSON.stringify(cLog));}
+function save(){try{localStorage.setItem('px-entries',JSON.stringify(entries));localStorage.setItem('px-travel',JSON.stringify(tLog));localStorage.setItem('px-calltek',JSON.stringify(cLog));}catch(e){console.log('Storage error',e);}}
 function fm(n){return '$'+Number(n||0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
 function fk(n){return Number(n||0).toFixed(1)+' km';}
 function fd(d){if(!d)return'';return new Date(d+'T00:00:00').toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'});}

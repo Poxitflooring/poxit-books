@@ -245,7 +245,15 @@ input[type=text],input[type=number],input[type=date],input[type=time],select{wid
         <div class="sc"><div class="sv" id="tr-ato" style="color:#1A7A4A;font-size:22px">$0.00</div><div class="sl">ATO Deduction<br/>$0.88/km</div></div>
       </div>
     </div>
-    <button class="btn" id="saveTravelBtn">Save Trip</button>
+    <div id="trip-draft-banner" style="display:none;background:#1a2a1a;border:1px solid #0ABAB5;border-radius:8px;padding:12px;margin-bottom:12px;font-size:12px;color:#0ABAB5;">
+      <div style="font-weight:700;margin-bottom:4px">▶ TRIP IN PROGRESS</div>
+      <div id="trip-draft-info" style="color:#888;font-size:11px;"></div>
+      <div style="margin-top:8px;font-size:11px;color:#555;">Fill in end odometer above then tap Save Trip</div>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn" id="startTripBtn" onclick="startTrip()" style="background:#1a1a1a;border:1px solid #0ABAB5;color:#0ABAB5;flex:1;">Start Trip</button>
+      <button class="btn" id="saveTravelBtn" style="flex:2;">Save Trip</button>
+    </div>
   </div>
   <div class="sec" style="margin-top:16px">Poxit Travel Log</div>
   <div id="travel-list"><div class="empty">No trips logged</div></div>
@@ -658,6 +666,8 @@ function scanReceipt(input) {
 // ── ODOMETER SCAN ──
 async function scanOdo(file, prevId, inputId, color) {
   if (!file) return;
+  var apiKey = getApiKey();
+  if (!apiKey) { showApiKeyModal(); return; }
   var reader = new FileReader();
   reader.onload = async function(ev) {
     var b64 = ev.target.result.split(',')[1];
@@ -667,11 +677,12 @@ async function scanOdo(file, prevId, inputId, color) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'x-api-key': apiKey,
             'anthropic-version': '2023-06-01',
             'anthropic-dangerous-direct-browser-access': 'true'
           },
           body: JSON.stringify({
-            model: 'claude-sonnet-4-5-20251001',
+            model: 'claude-sonnet-4-5',
             max_tokens: 50,
           messages: [{ role: 'user', content: [
             { type: 'image', source: { type: 'base64', media_type: file.type, data: b64 } },
@@ -711,6 +722,58 @@ function calcTravel() {
   document.getElementById('travel-result').style.display = 'block';
 }
 
+// ── TRIP DRAFT ──
+var DRAFT_KEY = 'px-trip-draft';
+
+function startTrip() {
+  var client = document.getElementById('t-client').value.trim();
+  var dest = document.getElementById('t-dest').value.trim();
+  var sodo = document.getElementById('t-sodo').value.trim();
+  if (!client && !dest && !sodo) { toast('Fill in at least client, destination or start odometer'); return; }
+  var draft = {
+    date: document.getElementById('t-date').value,
+    startTime: document.getElementById('t-stime').value,
+    client: client,
+    destination: dest,
+    purpose: document.getElementById('t-purpose').value,
+    notes: document.getElementById('t-notes').value,
+    startOdo: sodo
+  };
+  localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  showTripDraft(draft);
+  toast('Trip started — come back to finish it ✓');
+}
+
+function showTripDraft(draft) {
+  var banner = document.getElementById('trip-draft-banner');
+  if (!banner) return;
+  banner.style.display = 'block';
+  document.getElementById('trip-draft-info').textContent =
+    (draft.client || 'Unknown client') + ' → ' + (draft.destination || '?') +
+    (draft.startOdo ? '  |  Start: ' + parseInt(draft.startOdo).toLocaleString() + ' km' : '');
+  // Restore fields
+  if (draft.date) document.getElementById('t-date').value = draft.date;
+  if (draft.startTime) document.getElementById('t-stime').value = draft.startTime;
+  if (draft.client) document.getElementById('t-client').value = draft.client;
+  if (draft.destination) document.getElementById('t-dest').value = draft.destination;
+  if (draft.purpose) document.getElementById('t-purpose').value = draft.purpose;
+  if (draft.notes) document.getElementById('t-notes').value = draft.notes;
+  if (draft.startOdo) document.getElementById('t-sodo').value = draft.startOdo;
+}
+
+function clearTripDraft() {
+  localStorage.removeItem(DRAFT_KEY);
+  var banner = document.getElementById('trip-draft-banner');
+  if (banner) banner.style.display = 'none';
+}
+
+function loadTripDraft() {
+  try {
+    var d = localStorage.getItem(DRAFT_KEY);
+    if (d) showTripDraft(JSON.parse(d));
+  } catch(e) {}
+}
+
 function saveTravel() {
   var client = document.getElementById('t-client').value.trim();
   var dest = document.getElementById('t-dest').value.trim();
@@ -734,7 +797,8 @@ function saveTravel() {
   document.getElementById('ts-prev').innerHTML = '<div style="font-size:28px">📷</div><div style="font-size:12px;color:#555">Photo start odometer</div>';
   document.getElementById('te-prev').innerHTML = '<div style="font-size:28px">📷</div><div style="font-size:12px;color:#555">Photo end odometer</div>';
   document.getElementById('travel-result').style.display = 'none';
-  toast('Trip saved');
+  clearTripDraft();
+  toast('Trip saved ✓');
 }
 
 // ── CALLTEK ──

@@ -59,7 +59,10 @@ input[type=text],input[type=number],input[type=date],input[type=time],select{wid
     <div class="logo">POXIT <span>BOOKS</span></div>
     <div style="font-size:9px;color:#555;letter-spacing:1px;margin-top:2px">FINANCE &amp; TRAVEL</div>
   </div>
-  <button class="sync" id="syncBtn">SYNC</button>
+  <div style="display:flex;gap:6px">
+  <button class="sync" id="syncBtn" onclick="syncSheets()" style="font-size:10px;padding:8px 10px">PUSH ↑</button>
+  <button class="sync" onclick="pullFromSheets()" style="font-size:10px;padding:8px 10px;background:transparent;color:#0ABAB5;border:1px solid #0ABAB5">PULL ↓</button>
+</div>
 </div>
 
 <div class="nav" id="nav">
@@ -217,10 +220,10 @@ input[type=text],input[type=number],input[type=date],input[type=time],select{wid
       <div class="mb"><label class="lbl">Date</label><input type="date" id="t-date"/></div>
       <div class="mb"><label class="lbl">Start Time</label><input type="time" id="t-stime"/></div>
     </div>
-    <div class="mb"><label class="lbl">Client / Job</label><input type="text" id="t-client" placeholder="e.g. Darren Ames"/></div>
+    <div class="mb" id="t-client-wrap"><label class="lbl">Client / Job</label><input type="text" id="t-client" placeholder="e.g. Darren Ames"/></div>
     <div class="mb"><label class="lbl">Destination</label><input type="text" id="t-dest" placeholder="e.g. Helensvale QLD 4212"/></div>
     <div class="mb"><label class="lbl">Purpose</label>
-      <select id="t-purpose">
+      <select id="t-purpose" onchange="travelPurposeChanged()">
         <option>Client job / service call</option>
         <option>Materials pickup</option>
         <option>Quote / site inspection</option>
@@ -254,7 +257,7 @@ input[type=text],input[type=number],input[type=date],input[type=time],select{wid
       <div style="font-size:44px;font-weight:900;color:#0ABAB5;letter-spacing:2px" id="tr-km">0 km</div>
       <div style="font-size:11px;color:#555;margin:6px 0 16px" id="tr-zone"></div>
       <div class="stat2">
-        <div class="sc"><div class="sv" id="tr-chg" style="color:#0ABAB5;font-size:22px">$0.00</div><div class="sl">Client Charge<br/>$1.75/km &gt;25km</div></div>
+        <div class="sc" id="tr-chg-wrap"><div class="sv" id="tr-chg" style="color:#0ABAB5;font-size:22px">$0.00</div><div class="sl">Client Charge<br/><label style="font-size:10px;color:#555;cursor:pointer"><input type="checkbox" id="t-chargeable" onchange="calcTravel()" style="margin-right:4px;accent-color:#0ABAB5"/>Charge client</label></div></div>
         <div class="sc"><div class="sv" id="tr-ato" style="color:#1A7A4A;font-size:22px">$0.00</div><div class="sl">ATO Deduction<br/>$0.88/km</div></div>
       </div>
     </div>
@@ -354,6 +357,7 @@ input[type=text],input[type=number],input[type=date],input[type=time],select{wid
 
 <!-- LEDGER -->
 <div id="pg-ledger" class="pg">
+  <button onclick="exportFullBackup()" style="width:100%;background:#0ABAB5;color:#000;border:none;padding:14px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:1px;margin-bottom:12px">⬇ EXPORT FULL BACKUP (ALL DATA)</button>
   <div class="sec">Full Ledger</div>
   <div id="ledger-list"><div class="empty">No transactions yet</div></div>
 </div>
@@ -525,7 +529,7 @@ function addIncome() {
   var inc = document.getElementById('i-gst').value === 'inc';
   var r = gstCalc(amt, inc);
   E.unshift({
-    id: Date.now(), type: 'income',
+    id: 2000000000000 + (Date.now() % 999999999), type: 'income',
     date: document.getElementById('i-date').value,
     description: client,
     category: document.getElementById('i-svc').value,
@@ -559,7 +563,7 @@ function addExpense() {
   var inc = document.getElementById('e-gst').value === 'inc';
   var r = gstCalc(amt, inc);
   E.unshift({
-    id: Date.now(), type: 'expense',
+    id: 2000000000000 + (Date.now() % 999999999), type: 'expense',
     date: document.getElementById('e-date').value,
     description: sup,
     category: document.getElementById('e-cat').value,
@@ -746,7 +750,8 @@ function calcTravel() {
   var e = parseInt(document.getElementById('t-eodo').value) || 0;
   if (!s || !e || e <= s) { document.getElementById('travel-result').style.display = 'none'; return; }
   var km = e - s;
-  var chg = Math.max(0, km - 25) * 1.75;
+  var chargeChecked = document.getElementById('t-chargeable') && document.getElementById('t-chargeable').checked;
+  var chg = chargeChecked ? Math.max(0, km - 25) * 1.75 : 0;
   var ato = km * 0.88;
   document.getElementById('tr-km').textContent = fk(km);
   document.getElementById('tr-chg').textContent = fm(chg);
@@ -807,19 +812,42 @@ function loadTripDraft() {
   } catch(e) {}
 }
 
+
+function travelPurposeChanged() {
+  var purpose = document.getElementById('t-purpose').value;
+  var isClientJob = purpose === 'Client job / service call';
+  var wrap = document.getElementById('t-client-wrap');
+  if (wrap) wrap.style.display = isClientJob ? 'block' : 'none';
+  // Reset client field if not a client job
+  if (!isClientJob) {
+    var cf = document.getElementById('t-client');
+    if (cf) cf.value = '';
+  }
+  // Hide charge toggle for non-client jobs
+  var chgWrap = document.getElementById('tr-chg-wrap');
+  if (chgWrap) chgWrap.style.display = isClientJob ? 'block' : 'none';
+  var cb = document.getElementById('t-chargeable');
+  if (cb && !isClientJob) cb.checked = false;
+  calcTravel();
+}
+
 function saveTravel() {
   var client = document.getElementById('t-client').value.trim();
   var dest = document.getElementById('t-dest').value.trim();
-  if (!client || !dest) { toast('Fill in client and destination'); return; }
+  var purpose = document.getElementById('t-purpose').value;
+  var isClientJob = purpose === 'Client job / service call';
+  if (isClientJob && !client) { toast('Fill in client name'); return; }
+  if (!dest) { toast('Fill in destination'); return; }
   var s = parseInt(document.getElementById('t-sodo').value) || 0;
   var e = parseInt(document.getElementById('t-eodo').value) || 0;
   var km = e - s;
-  var chargeable = Math.max(0, km - 25);
+  var chargeChecked = document.getElementById('t-chargeable') && document.getElementById('t-chargeable').checked;
+  var chargeable = chargeChecked ? Math.max(0, km - 25) : 0;
   TL.unshift({
-    id: Date.now(), date: document.getElementById('t-date').value,
+    id: 2000000000000 + (Date.now() % 999999999), date: document.getElementById('t-date').value,
     startTime: document.getElementById('t-stime').value,
     endTime: document.getElementById('t-etime').value,
-    client: client, destination: dest,
+    client: client || document.getElementById('t-purpose').value, destination: dest,
     purpose: document.getElementById('t-purpose').value,
     notes: document.getElementById('t-notes').value,
     startOdo: s, endOdo: e, totalKm: km,
@@ -859,7 +887,7 @@ function saveCalltek() {
   var e = parseInt(document.getElementById('c-eodo').value) || 0;
   var km = e - s;
   CL.unshift({
-    id: Date.now(), date: document.getElementById('c-date').value,
+    id: 2000000000000 + (Date.now() % 999999999), date: document.getElementById('c-date').value,
     startTime: document.getElementById('c-stime').value,
     endTime: document.getElementById('c-etime').value,
     job: job, sites: document.getElementById('c-sites').value,
@@ -899,25 +927,169 @@ function exportCSV(which) {
 }
 
 // ── SYNC ──
-async function syncSheets() {
-  if (!E.length) { toast('No entries to sync'); return; }
-  toast('Syncing...');
-  try {
-    var payload = {
-      action: 'save',
-      timestamp: new Date().toISOString(),
-      entries: E.map(function(e) {
-        return { id: e.id, type: e.type, date: e.date, description: e.description,
-          category: e.category, amount_inc_gst: e.amountInc, amount_exc_gst: e.amountExc,
-          gst: e.gst, notes: e.notes, paid: e.paid || '' };
-      }),
-      secondhand: SH
-    };
+async 
+function exportFullBackup() {
+  var lines = [];
+  var now = new Date().toISOString().slice(0,10);
+
+  // ── INCOME & EXPENSES ──
+  lines.push('=== INCOME & EXPENSES ===');
+  lines.push('id,type,date,description,category,amount_inc_gst,amount_exc_gst,gst,notes,paid');
+  E.slice().sort(function(a,b){ return a.date > b.date ? 1 : -1; }).forEach(function(e) {
+    lines.push([
+      e.id, e.type, e.date,
+      '"' + (e.description||'').replace(/"/g,'""') + '"',
+      '"' + (e.category||'').replace(/"/g,'""') + '"',
+      (e.amountInc||0).toFixed(2),
+      (e.amountExc||0).toFixed(2),
+      (e.gst||0).toFixed(2),
+      '"' + (e.notes||'').replace(/"/g,'""') + '"',
+      e.paid ? 'yes' : 'no'
+    ].join(','));
+  });
+
+  lines.push('');
+  lines.push('=== SECOND HAND PURCHASES ===');
+  lines.push('id,date,item,seller,amount,payment,purpose,capital');
+  SH.forEach(function(s) {
+    lines.push([
+      s.id, s.date,
+      '"' + (s.item||'').replace(/"/g,'""') + '"',
+      '"' + (s.seller||'').replace(/"/g,'""') + '"',
+      (s.amount||0).toFixed(2),
+      '"' + (s.payment||'').replace(/"/g,'""') + '"',
+      '"' + (s.purpose||'').replace(/"/g,'""') + '"',
+      s.capital ? 'yes' : 'no'
+    ].join(','));
+  });
+
+  lines.push('');
+  lines.push('=== POXIT TRAVEL LOG ===');
+  lines.push('id,date,startTime,endTime,client,destination,purpose,totalKm,chargeableKm,clientCharge,atoDeduction,notes');
+  TL.forEach(function(t) {
+    lines.push([
+      t.id, t.date, t.startTime||'', t.endTime||'',
+      '"' + (t.client||'').replace(/"/g,'""') + '"',
+      '"' + (t.destination||'').replace(/"/g,'""') + '"',
+      '"' + (t.purpose||'').replace(/"/g,'""') + '"',
+      (t.totalKm||0).toFixed(1),
+      (t.chargeableKm||0).toFixed(1),
+      (t.clientCharge||0).toFixed(2),
+      (t.atoDeduction||0).toFixed(2),
+      '"' + (t.notes||'').replace(/"/g,'""') + '"'
+    ].join(','));
+  });
+
+  lines.push('');
+  lines.push('=== CALLTEK LOG ===');
+  lines.push('id,date,startTime,endTime,job,sites,type,totalKm,atoDeduction,notes');
+  CL.forEach(function(c) {
+    lines.push([
+      c.id, c.date, c.startTime||'', c.endTime||'',
+      '"' + (c.job||'').replace(/"/g,'""') + '"',
+      '"' + (c.sites||'').replace(/"/g,'""') + '"',
+      '"' + (c.type||'').replace(/"/g,'""') + '"',
+      (c.totalKm||0).toFixed(1),
+      (c.atoDeduction||0).toFixed(2),
+      '"' + (c.notes||'').replace(/"/g,'""') + '"'
+    ].join(','));
+  });
+
+  lines.push('');
+  lines.push('=== SUMMARY ===');
+  var totalInc = E.filter(function(e){return e.type==='income';}).reduce(function(s,e){return s+e.amountInc;},0);
+  var totalExp = E.filter(function(e){return e.type==='expense';}).reduce(function(s,e){return s+e.amountInc;},0);
+  lines.push('Total Income,' + totalInc.toFixed(2));
+  lines.push('Total Expenses,' + totalExp.toFixed(2));
+  lines.push('Net P&L,' + (totalInc - totalExp).toFixed(2));
+  lines.push('Travel entries,' + TL.length);
+  lines.push('Calltek entries,' + CL.length);
+  lines.push('Second Hand entries,' + SH.length);
+  lines.push('Exported,' + new Date().toISOString());
+
+  var blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'poxit-full-backup-' + now + '.csv';
+  a.click();
+  toast('Backup downloaded ✓');
+}
+
+function syncSheets() {
+  if (!E.length && !SH.length) { toast('No entries to sync'); return; }
+  var btn = document.getElementById('syncBtn');
+  if (btn) btn.textContent = 'SYNCING...';
+  toast('Pushing to cloud...');
+
+  var payload = {
+    action: 'save',
+    timestamp: new Date().toISOString(),
+    entries: E.map(function(e) {
+      return { id: e.id, type: e.type, date: e.date, description: e.description,
+        category: e.category, amount_inc_gst: e.amountInc, amount_exc_gst: e.amountExc,
+        gst: e.gst, notes: e.notes, paid: e.paid || '' };
+    }),
+    secondhand: SH
+  };
+
+  fetch(SCRIPT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify(payload)
+  })
+  .then(function(r) { return r.text(); })
+  .then(function(t) {
+    if (btn) btn.textContent = 'SYNC';
+    toast('Pushed ✓ — ' + E.length + ' entries saved');
+    localStorage.setItem('px-last-sync', new Date().toISOString());
+  })
+  .catch(function() {
+    // Fallback to GET (CORS-safe)
     var url = SCRIPT + '?data=' + encodeURIComponent(JSON.stringify(payload));
     var img = new Image();
+    img.onerror = img.onload = function() {
+      if (btn) btn.textContent = 'SYNC';
+      toast('Synced ✓ ' + E.length + ' entries');
+      localStorage.setItem('px-last-sync', new Date().toISOString());
+    };
     img.src = url;
-    setTimeout(function() { toast('Synced ✓'); }, 1200);
-  } catch(e) { toast('Sync failed — check connection'); }
+  });
+}
+
+function pullFromSheets() {
+  var btn = document.getElementById('syncBtn');
+  if (btn) btn.textContent = 'PULLING...';
+  toast('Pulling from cloud...');
+
+  fetch(SCRIPT + '?action=getEntries&t=' + Date.now())
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (!data || !data.entries || !data.entries.length) {
+      toast('No cloud data found — push first');
+      if (btn) btn.textContent = 'SYNC';
+      return;
+    }
+    var cloudEntries = data.entries.map(function(e) {
+      return {
+        id: e.id, type: e.type, date: e.date, description: e.description,
+        category: e.category, amountInc: e.amount_inc_gst || e.amountInc || 0,
+        amountExc: e.amount_exc_gst || e.amountExc || 0,
+        gst: e.gst || 0, notes: e.notes || '', paid: e.paid || false
+      };
+    });
+    // Merge: cloud entries + any local entries not in cloud
+    var cloudIds = new Set(cloudEntries.map(function(e) { return e.id; }));
+    var localOnly = E.filter(function(e) { return !cloudIds.has(e.id); });
+    E = cloudEntries.concat(localOnly);
+    save();
+    render();
+    if (btn) btn.textContent = 'SYNC';
+    toast('Pulled ✓ — ' + cloudEntries.length + ' entries restored');
+  })
+  .catch(function(err) {
+    if (btn) btn.textContent = 'SYNC';
+    toast('Pull failed — check connection');
+  });
 }
 
 // ── DELETE ──
@@ -1239,7 +1411,7 @@ function addSH() {
   if (!item || !amt || !seller) { toast('Item, seller and amount required'); return; }
   var isCapital = amt >= 1000;
   SH.unshift({
-    id: Date.now(),
+    id: 2000000000000 + (Date.now() % 999999999),
     date: document.getElementById('sh-date').value,
     item: item,
     seller: seller,
@@ -1310,7 +1482,7 @@ function init() {
   });
 
   // Sync
-  document.getElementById('syncBtn').addEventListener('click', syncSheets);
+  // Sync buttons use onclick directly
 
   // Dashboard quick nav
   document.getElementById('goIncome').addEventListener('click', function() { showPage('income'); });
@@ -1363,7 +1535,7 @@ function init() {
 // ── POXIT BOOKS BATCH SEED (Batches 10-15) ──
 // Runs once on load — merges receipt data without overwriting existing entries
 (function() {
-  var SEED_KEY = 'px_seeded_v21';
+  var SEED_KEY = 'px_seeded_v23b';
   if (localStorage.getItem(SEED_KEY)) return; // already seeded — never run twice
   // Clear stale px-e from previous seed versions to fix Safari zeros bug
   try { localStorage.removeItem('px-e'); } catch(e) {}
